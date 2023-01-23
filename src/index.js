@@ -1,5 +1,9 @@
 import generateMain from "./mainPage";
 import loginPage from "./loginPage";
+
+
+
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth,  signInWithRedirect, getRedirectResult, signInWithPopup  } from "firebase/auth";
@@ -22,11 +26,18 @@ const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider(app);
 const auth = getAuth(app);
 
+
+
+
+
+
+//uncomment this after
+
 loginPage();
+
 
 const btn = document.getElementById("login-btn");
 btn.addEventListener("click", (e)=>{
-
     signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
@@ -48,4 +59,5 @@ btn.addEventListener("click", (e)=>{
       alert(errorMessage)
     });
 });
+
 
