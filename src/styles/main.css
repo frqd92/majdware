@@ -14,29 +14,53 @@ body{
 }
 
 /* ------------------------------------------------------------------------------- */
-/* <div class="login-div">
-<div class="welcome-div">
-    <h1>Majdware</h1>
-    <button id="login-btn">Login</button> */
-#majd-image{
-    z-index: 10;
-}
+
+
 .login-div{
-    border: 1px solid black;
+    position: relative;
+    border: 1px solid rgba(126, 115, 115, 0.145);
     width: 100vw;
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.077);
+    height: 150px;
+    background-image: linear-gradient(45deg, #579189 0%, #0c1044 100%);
+}
+#majd-image{
+    position: absolute;
+    width: 200px;
+    left: 25%;
+    bottom: 73px;
+    filter: brightness(1.03) contrast(3) grayscale(0.6);
 }
 .login-div h1{
+    padding-bottom: 20px;
+    font-family: "noto";
+    letter-spacing: 0.15rem;
+    color: rgba(0, 0, 0, 0.868);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.382), 0 0 10px rgba(255, 255, 255, 0.334), 0 0 15px rgba(255, 255, 255, 0.501), 0 0 30px #332b729e, 0 0 40px #abe9ef81, 0 0 55px #188ffff0, 1px 2px 10px rgba(206, 90, 55, 0.36);
+    user-select: none;
+
 
 }
 #login-btn{
-
+    padding: 0px 20px;
+    background-color: rgba(0, 0, 0, 0.197);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    color: rgba(174, 174, 174, 0.939);
+    cursor: pointer;
+    width: 100vw;
+    font-size: 1.2rem;
+    font-family: "cairo";
+ 
 }
-
+#login-btn:hover{
+    background-color: rgba(85, 83, 83, 0.297);
+    color: rgb(251, 251, 251);
+}
 /* ------------------------------------------------------------------------------- */
 .welcome-text{
     font-size: 1.3rem;
@@ -137,4 +161,13 @@ body{
 @font-face {
     font-family: "taviraj";
     src: url(/src/Assets/Taviraj-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: "noto";
+    src: url(/src/Assets/NotoSans.ttf);
+}
+@font-face {
+    font-family: "cairo";
+    src: url(/src/Assets/cairo.ttf);
 }
