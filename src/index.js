@@ -1,3 +1,5 @@
+import generateMain from "./mainPage";
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth,  signInWithRedirect, getRedirectResult, signInWithPopup  } from "firebase/auth";
@@ -31,8 +33,7 @@ btn.addEventListener("click", (e)=>{
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      alert(user.displayName)
-      generatePage()
+      generateMain(user.displayName);
       // ...
     }).catch((error) => {
       // Handle Errors here.
@@ -47,7 +48,3 @@ btn.addEventListener("click", (e)=>{
     });
 });
 
-function generatePage(){
-    document.body.innerHTML="";
-    console.log("farts")
-}
