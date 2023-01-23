@@ -1,6 +1,60 @@
 .add-company-modal{
     position: fixed;
-    width: 400px;
-    height: 400px;
-    background-color: red;
+    width: 50%;
+    height: fit-content;
+    background-color: rgba(0, 0, 0, 0.374);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(9px);
+    border-radius: 8px;
+}
+.add-modal-text{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    color: rgba(197, 191, 191, 0.952);
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.263);
+    user-select: none;
+    padding-bottom: 5px;
+
+}
+
+.modal-input-div{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.modal-input{
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.362);
+    background-color: rgba(253, 253, 253, 0.753);
+    box-shadow: 0px 0px 2px black;
+    padding: 0px 10px;
+    height: 30px;
+    outline: none;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.modal-input:focus{
+    background-color: rgba(255, 255, 255, 0.88);
+    box-shadow: 0px 0px 5px rgb(115, 122, 220);;
+
+}
+.modal-arrow{
+
+}
+#modal-add-btn{
+    border: 1px solid rgba(0, 0, 0, 0.463);
+    background:rgba(0, 0, 0, 0.209);
+    padding: 3px 6px;
+    color: rgb(182, 177, 177);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    width: 20%;
 }

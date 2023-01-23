@@ -6,8 +6,12 @@ export default function searchBarFunc(){
     searchBar.addEventListener("focusout", ()=>{
         searchBar.placeholder = "Search companies";
     });
-    function searchFunc(){
-        
+    window.addEventListener("keydown", focusInput);
+    function focusInput(){
+        document.querySelector(".btn-div").addEventListener("click", ()=>{
+            window.removeEventListener("keydown", focusInput);
+        }, {once:true});
+        searchBar.focus();
     }
 }
 

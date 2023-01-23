@@ -1,6 +1,6 @@
 import elementCreator from "./utilities/createDomElement";
 import searchBarFunc from "./searchbar";
-import addCompany from "./addCompany";
+import addCompanyModal from "./addCompany";
 import '/src/styles/main.css'
 export default function generateMain(username){
     document.body.innerHTML="";
@@ -8,12 +8,11 @@ export default function generateMain(username){
     const companyDiv = elementCreator("div", ["class", "company-div"], false, document.body);
     const title = elementCreator("p", ["class", "title-text"],'Companies', companyDiv);
     const searchBar = elementCreator("input", ["id", "search-bar"], false,companyDiv )
-    searchBar.placeholder = "Search companies";
+    searchBar.placeholder = "Search";
     const listCompaniesDiv = elementCreator("div", ["class", "list-companies"], false, companyDiv);
     const btnDiv = elementCreator("div", ["class", "btn-div"], false, companyDiv)
     const addCompany = elementCreator("button", ["id", "add-company-btn"], "+", btnDiv);
-
-    addCompany();
+    btnDiv.addEventListener("click", addCompanyModal);
     searchBarFunc();
 }
 
