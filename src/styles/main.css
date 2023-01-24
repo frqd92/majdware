@@ -107,9 +107,8 @@ body{
     font-size: 1.1rem;
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: rgba(0, 0, 0, 0.143);
+    background-color: rgba(246, 246, 246, 0.381);
     border: 1px solid rgba(0, 0, 0, 0.334);
-
     color: rgba(0, 0, 0, 0.695);
     caret-color: #000000;
     box-shadow: 0px 0px 1px rgb(3, 43, 161);
@@ -118,7 +117,7 @@ body{
     box-shadow: 0px 0px 5px rgb(3, 43, 161);
 }
 #search-bar::placeholder{
-    color: rgba(255, 255, 255, 0.311);
+    color: rgba(54, 51, 51, 0.311);
 }
 .list-companies{
     border: 1px solid rgba(0, 0, 0, 0.334);
@@ -126,7 +125,7 @@ body{
     width: 90%;
     height: 400px;
     border-radius: 0px 0px 8px 8px;
-    overflow-y: scroll
+    overflow-y: auto;
 }
 .list-companies::-webkit-scrollbar {
     width: 0.8rem;
@@ -138,7 +137,7 @@ body{
   }
 .list-companies::-webkit-scrollbar-thumb {
     background-color: rgba(1, 12, 84, 0.2);
-    border-radius: 0px 0px 8px 8px;
+    border-radius: 0px 0px 8px 0px;
   }
 .btn-div{
     margin-top: 10px;

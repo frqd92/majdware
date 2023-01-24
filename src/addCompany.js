@@ -1,7 +1,7 @@
 import elementCreator from "./utilities/createDomElement";
 import '/src/styles/addCompany.css';
 import makeDraggable from "./utilities/makeDraggable";
-import { companyData } from "./mainArray";
+import { companyData } from "./companyList";
 import updateCompanyList from "./companyList";
 export default function addCompanyModal(){
     if(document.querySelector(".add-company-modal")===null){
@@ -62,7 +62,7 @@ function createInput(inputDiv){
         console.log("shit")
         input.addEventListener("keydown",()=>{
             const hint = elementCreator("p", ["class", "input-hint"], "اضغط على زر السهم لأسفل لإضافة المزيد من الشركات", inputDiv);
-            setTimeout(()=>{hint.remove();}, 3000)
+            setTimeout(()=>{hint.remove();}, 4000)
 
         }, {once:true})
     }

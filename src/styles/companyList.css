@@ -1,3 +1,36 @@
+.empty-company {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: end;
+    align-items: center;
+    text-align: center;
+    animation: emptyAnimation infinite 2s linear;
+}
+.empty-company p{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.71);
+}
+.empty-company img{
+    width: 50px;
+    opacity: 0.7;
+
+}
+
+@keyframes emptyAnimation {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.3;
+        
+    }
+    100%{
+        opacity: 0.8;
+    }
+}
+
 .company-row{
     width: 100%;
     height: 40px;
@@ -6,12 +39,12 @@
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.215);
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    overflow: hidden;
+
 }
 .company-row:nth-child(even){
 
 }
 .company-row:nth-child(odd){
-
+    background: rgba(0, 0, 0, 0.092);
 }
 
