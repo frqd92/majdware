@@ -51,6 +51,10 @@ function createModal(){
     }
 }
 
+
+
+
+
 function createInput(inputDiv){
     const allInputs = document.querySelectorAll(".modal-input");
     const div = elementCreator("div", ["class", "modal-input-and-text"], false, inputDiv);
@@ -59,7 +63,6 @@ function createInput(inputDiv){
     input.focus();
     inputNum.innerText = allInputs.length;
     if(allInputs.length===0){
-        console.log("shit")
         input.addEventListener("keydown",()=>{
             const hint = elementCreator("p", ["class", "input-hint"], "اضغط على زر السهم لأسفل لإضافة المزيد من الشركات", inputDiv);
             setTimeout(()=>{hint.remove();}, 4000)

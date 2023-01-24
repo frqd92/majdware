@@ -4,6 +4,10 @@ import addCompanyModal from "./addCompany";
 import arrowDown from '/src/Assets/arrowDown.png'
 import '/src/styles/companyList.css';
 import '/src/styles/main.css'
+
+import { readCompanies } from ".";
+
+
 export default function generateMain(username){
     document.body.innerHTML="";
     elementCreator("p", ["class", "welcome-text"],`${username} أَهْلًا وَسَهْلًا`, document.body);
