@@ -44,9 +44,13 @@ function generateHeader(e){
     elementCreator("p", ["class", "factory-header-date"], `${getDate()}`, infoDiv);
     
     backBtn.addEventListener("click", backHome, {once:true})
-  
+    backBtn.addEventListener("mouseover", ()=>{
+        document.querySelector(".back-btn-div p").style.opacity="1";
+    })
+    backBtn.addEventListener("mouseleave", ()=>{
+        document.querySelector(".back-btn-div p").style.opacity="0";
+    })
 }
-
 
 function backHome(){
     const children = document.querySelectorAll("body > *");
