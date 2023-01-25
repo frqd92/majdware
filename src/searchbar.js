@@ -16,16 +16,20 @@ export default function searchBarFunc(){
     });
     searchBar.addEventListener("keydown", (e)=>{
         if(e.key==="Delete"){
-            searchBar.value="";
-            document.querySelectorAll(".company-row").forEach((elem)=>{
-                elem.style.display="flex";
-            })
+            clearShit();
         }
     });
 
     
 }
+export function clearShit(){
+    document.getElementById("search-bar").value="";
+    document.getElementById("search-bar").focus();
+    document.querySelectorAll(".company-row").forEach((elem)=>{
+        elem.style.display="flex";
+    })
 
+}
 export function searchFactories(){
     const allFactories = document.querySelectorAll(".company-row");
     const searchBar = document.getElementById("search-bar");
