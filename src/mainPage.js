@@ -1,16 +1,15 @@
 import elementCreator from "./utilities/createDomElement";
 import searchBarFunc from "./searchbar";
 import addCompanyModal from "./addCompany";
-import arrowDown from '/src/Assets/arrowDown.png'
+import arrowDown from '/src/Assets/arrowDown.png';
+import { getUserInfo } from ".";
 import '/src/styles/companyList.css';
 import '/src/styles/main.css'
 
-import { readCompanies } from ".";
 
-
-export default function generateMain(username){
+export default function generateMain(){
     document.body.innerHTML="";
-    elementCreator("p", ["class", "welcome-text"],`${username} أَهْلًا وَسَهْلًا`, document.body);
+    elementCreator("p", ["class", "welcome-text"],`${getUserInfo("name")} أَهْلًا وَسَهْلًا`, document.body);
     const companyDiv = elementCreator("div", ["class", "company-div"], false, document.body);
     elementCreator("p", ["class", "title-text"],'Companies', companyDiv);
     const searchBar = elementCreator("input", ["id", "search-bar"], false,companyDiv )
@@ -20,7 +19,7 @@ export default function generateMain(username){
     elementCreator("button", ["id", "add-company-btn"], "+", btnDiv);
     btnDiv.addEventListener("click", addCompanyModal);
     searchBarFunc();
-    
+
     if(listCompaniesDiv.children.length===0){
         emptyCompanyList(listCompaniesDiv);
     }
@@ -34,3 +33,4 @@ function emptyCompanyList(div){
     arrow.src = arrowDown;
     otherDiv.appendChild(arrow)
 }
+

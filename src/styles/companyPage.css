@@ -1,0 +1,46 @@
+.body-factory{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 10fr;
+
+}
+.factory-main{
+    background: black;
+    width: 100%;
+
+}
+.factory-header{
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    border-bottom: 1px solid black;
+    justify-items: center;
+    align-items: center;
+    user-select: none;
+}
+
+.back-btn-div img{
+    width: 50px;
+}
+
+.factory-info-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.factory-namePic-div{
+display: flex;
+gap: 20px;
+justify-content: center;
+align-items: center;
+}
+
+.factory-namePic-div p{
+    
+}
+
+.factory-namePic-div img{
+    border-radius: 50px;
+    width: 50px;
+    -webkit-user-drag: none;
+}

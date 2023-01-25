@@ -1,12 +1,16 @@
 import { writeCompanies } from ".";
+import { makeFactoryPage } from "./company pages/makeFactory";
 let companyArr = [];
 let saveArray = [];
 import elementCreator from "./utilities/createDomElement";
+import { updateFactoryArr } from "./utilities/tracker";
+
+
+
 export function companyData(name){
     companyArr.push(name);
-
 }
-
+//makes actual row
 export default function updateCompanyList(){
     const div = document.querySelector(".list-companies");
     if(div.querySelector(".empty-company")!==null){
@@ -14,9 +18,11 @@ export default function updateCompanyList(){
     };
 
     companyArr.forEach((elem, index)=>{
-        elementCreator("div", ["class", ["company-row"]], `${companyArr[index]}`, div);
+        const row = elementCreator("div", ["class", ["company-row"]], `${companyArr[index]}`, div);
+        row.addEventListener("click", makeFactoryPage);
         saveArray.push({factoryName:elem})
     })
+    updateFactoryArr(saveArray);
     writeCompanies(saveArray);
     companyArr = [];
 }
@@ -29,5 +35,6 @@ export function feedCompanies(arr){
     for(let i=0;i<arr.length;i++){
         companyArr.push(arr[i].factoryName);
     }
-    updateCompanyList()
-}
+    updateCompanyList();
+};
+

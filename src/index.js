@@ -26,9 +26,6 @@ const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider(app);
 const auth = getAuth(app);
 
-
-
-
 //-----//
 //This part is for crud
 //initialize firebase databse
@@ -45,7 +42,7 @@ export function writeCompanies(value) {
   set(ref(db, 'users/' + uid + "/factories/"), value);
 }
 
- function readCompanies(){
+ export function readCompanies(){
   const dbRef = ref(getDatabase(app));
   const uid = auth.currentUser.uid;
   get(child(dbRef, 'users/' + uid + "/factories/")).then((snapshot) => {
@@ -59,12 +56,27 @@ export function writeCompanies(value) {
   });
 }
 
+export function getUserInfo(value){
+  const user = auth.currentUser;
+  switch(value){
+    case "name":
+      return user.displayName;
+      break;
+    case "uid":
+      return user.uid;
+      break;
+    case "email":
+      return user.email;
+      break;
+    case "profile-pic":
+      return user.photoURL;
+  }
 
+}
 
 
 
 //----------------------------------------------------------------------------------------------------------------------------------//
-
 
 loginPage();
 
@@ -79,8 +91,8 @@ function authenticate(){
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    generateMain(user.displayName);
-    readCompanies()
+    generateMain();
+    readCompanies();
     // ...
   }).catch((error) => {
     // Handle Errors here.
