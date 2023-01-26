@@ -36,7 +36,6 @@ import {getDatabase, ref, set, child, update, remove, get} from "firebase/databa
 const database = getDatabase(app);
 
 export function writeCompanies(value) {
-  const user = auth.currentUser.displayName;
   const uid = auth.currentUser.uid;
   const db = getDatabase();
   set(ref(db, 'users/' + uid + "/factories/"), value);
@@ -80,8 +79,8 @@ export function getUserInfo(value){
 
 loginPage();
 
-const btn = document.getElementById("login-btn");
-btn.addEventListener("click", authenticate);
+document.getElementById("login-btn").addEventListener("click", authenticate, {once:true});
+window.addEventListener("keypress", enterKey);
 
 function authenticate(){
   signInWithPopup(auth, provider)
@@ -91,6 +90,7 @@ function authenticate(){
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
+    window.removeEventListener("keypress", enterKey);
     generateMain();
     readCompanies();
     // ...
@@ -105,4 +105,10 @@ function authenticate(){
     // ...
     alert(errorMessage)
   });
+}
+function enterKey(e){ //click enter to enter
+  if(e.key==="Enter"){
+    window.removeEventListener("keypress", enterKey);
+    authenticate();
+  }
 }

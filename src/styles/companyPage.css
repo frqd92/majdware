@@ -26,7 +26,7 @@
     font-size: 1.8rem;
     color: rgba(0, 0, 0, 0.953);
     user-select: none;
-    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.225);
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.225);
 }
 
 
@@ -95,7 +95,9 @@
     padding-right: 10px;
 
 }
-
+.mini-input-left{
+    color: rgba(5, 5, 155, 0.596);
+}
 .mini-input-slash, .mini-input-arrow{
     display: flex;
     justify-content: center;
@@ -120,16 +122,19 @@
 }
 
 
-.date-range-input:focus{
-    box-shadow: 1px 1px 1px rgb(230, 223, 223, 0.8), 1px 1px 2px rgb(0, 1, 2, 0.3), 1px 1px 10px rgb(12, 216, 223, 0.6) ;
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
-.date-range-input::placeholder{
-    color: rgba(54, 51, 51, 0.311);
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
 }
-
-
-
-
 
 
 
@@ -180,13 +185,13 @@
 
 
 .factory-header-title{
-    font-family: "noto";
+    font-family: "raleway";
     font-size: 2.2rem;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.09rem;
 
-    color: #01010795;
+    color: #a1a1a7e4;
 
-    text-shadow: #031361 1px 0px 1px;
+    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.632); 
 }
 
 
@@ -231,4 +236,8 @@
 @font-face {
     font-family: "cinzel";
     src: url("/src/Assets/cinzel.ttf");
+}
+@font-face {
+    font-family: "raleway";
+    src: url("/src/Assets/raleway.ttf");
 }

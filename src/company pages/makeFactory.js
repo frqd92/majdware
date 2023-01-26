@@ -3,7 +3,7 @@ import btn from '/src/Assets/back.png';
 import { getUserInfo } from '/src/index';
 import '/src/styles/companyPage.css';
 import { clearShit } from "../searchbar";
-import arrowImg from '/src/Assets/arrow-other.png';
+import filterDate from "../utilities/filterDateInput";
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 
@@ -23,48 +23,6 @@ function generateMainFactory(){
 
     filterDate(filterDiv);
 }
-
-
-
-function filterDate(div){
-    elementCreator("p", ["class", "filter-text"], "Date Range ", div);
-    const miniInputDiv = elementCreator("div", ["class", "mini-inputs-div"], false, div);
-
-    for(let i=0;i<6;i++){
-        if(i<3){
-            elementCreator("input", ["class", "mini-input", "mini-input-left"], false, miniInputDiv);
-        }
-        else{
-            elementCreator("input", ["class", "mini-input", "mini-input-right"], false, miniInputDiv);
-        }
-
-        if(i!==5){
-            if(i!==2){
-                elementCreator("span", ["class", "mini-input-slash"], "/", miniInputDiv);
-            }
-            else{
-                const arrowDiv = elementCreator("span", ["class", "mini-input-arrow"], false, miniInputDiv);
-                const arrow = document.createElement("img");
-                arrow.src= arrowImg;
-                arrowDiv.appendChild(arrow);
-            }
-    
-        }
-
-        
-    }
-
-}
-
-function dateInputLogic(dateInput){
-
-
-
-
-    
-}
-
-
 
 
 
