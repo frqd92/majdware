@@ -7,17 +7,17 @@ export default function filterDate(div){
     for(let i=0;i<6;i++){
         let input;
         if(i<3){
-            input = elementCreator("input", ["class", "mini-input", "mini-input-left"], false, miniInputDiv);
+            input = elementCreator("input", ["class", "mini-input", "mini-input-left", "date-filter"], false, miniInputDiv);
         }
         else{
-             input = elementCreator("input", ["class", "mini-input", "mini-input-right"], false, miniInputDiv);
+             input = elementCreator("input", ["class", "mini-input", "mini-input-right", "date-filter"], false, miniInputDiv);
         }
         if(i!==5){
             if(i!==2){
-                elementCreator("span", ["class", "mini-input-slash"], "/", miniInputDiv);
+                elementCreator("span", ["class", "mini-input-slash", "date-filter"], "/", miniInputDiv);
             }
             else{
-                const arrowDiv = elementCreator("span", ["class", "mini-input-arrow"], false, miniInputDiv);
+                const arrowDiv = elementCreator("span", ["class", "mini-input-arrow", "date-filter"], false, miniInputDiv);
                 const arrow = document.createElement("img");
                 arrow.src= arrowImg;
                 arrowDiv.appendChild(arrow);
@@ -27,10 +27,12 @@ export default function filterDate(div){
             case 0:
             case 3:
                 input.placeholder = "dd";
+                checkForZero();
                 break;
             case 1:
             case 4:
                 input.placeholder = "mm";
+                checkForZero();
                 break;
             case 2:
             case 5:
@@ -42,53 +44,110 @@ export default function filterDate(div){
     dateInputLogic();
 }
 
+
+function checkForZero(){
+    const miniInput = document.querySelectorAll(".mini-input");
+    miniInput.forEach((elem, i)=>{
+        elem.addEventListener("keydown", (e)=>{
+            if(e.key==="ArrowRight" || e.key==="ArrowLeft" || e.key==="Enter"){
+                if(i===0 || i=== 1 || i===3 || i===4){
+                    if(elem.value.length===1){
+                        elem.value = "0" +elem.value;
+                    }
+                }
+                if(i===2 || i===5){
+                    if(elem.value.length===1){
+                        elem.value="";
+                    }
+                }
+            }
+            if(e.key === "ArrowRight" && i!==5){
+                document.querySelectorAll(".mini-input")[i+1].focus();
+            }
+
+            else if(e.key ==="ArrowLeft" && i!==0){
+                document.querySelectorAll(".mini-input")[i-1].focus();
+            }
+        })
+    })
+}
+
+
+
+
+
+
+
 function dateInputLogic(){
     const allInputs = document.querySelectorAll(".mini-input");
-    const leftInputs = document.querySelectorAll(".mini-input-left");
-    const rightInputs = document.querySelectorAll(".mini-input-right");
-    
     allInputs.forEach((elem, index)=>{   
         elem.addEventListener("input",(e)=>{
-            // console.log(checkIfValid())
-
-            if(isNaN(e.data) || elem.value.length>2){
+            isInputValid();
+            if(e.inputType === "deleteContentBackward"){
+                validBackground(false);
+                elem.value="";
+                if(index!==0){
+                    elem.previousSibling.previousSibling.focus();
+                }
+            }
+            if( isNaN(e.data)|| elem.value.length>2){
                 elem.value = elem.value.substring(0, elem.length-1);
             }
-            if(e.inputType === "deleteContentBackward"){
-                elem.value="";
-            }
-            if(elem.value.length===2 && index!==5){
-                elem.nextSibling.nextSibling.focus();
-            }
-            if(elem.value.length === 2 && checkIfValid()){
-                
-            }
+
+            if(elem.value.length===2){ //put here logic to search movimentos
+                if(index!==5){
+                    elem.nextSibling.nextSibling.focus();
+                }
+                if(isInputValid()){
+                    validBackground(true);
+                }
+                else{
+                    validBackground(false);
+                }
+            }      
         });
     });
 
-    function checkIfValid(){
+    function validBackground(boo){
+        const allInputElem = document.querySelectorAll(".date-filter");
+        if(boo){
+            allInputElem.forEach(elem=>{
+                elem.classList.add("valid-input-bg");
+            });
+        }
+        else{
+            allInputElem.forEach(elem=>{
+                elem.classList.remove("valid-input-bg");
+            })
+        }
+
+    }
+
+
+
+    function isInputValid(){
         let total=0;
         allInputs.forEach((elem, index)=>{
             total+=elem.value.length;
             if(index===0 || index === 3){
                 if(elem.value>31){
-                    
                     elem.value="";
+                    elem.focus()
                 }
-
             }
             if(index===1 || index === 4){
                 if(elem.value>12){
                     elem.value="";
+                    elem.focus()
                 }
             }
-            
         })
-        if(total<12){
+        if(total>11){
+            return true;
+        }
+        else{
             return false;
         }
-
-      return false;
     }
 
     window.addEventListener("keydown", resetDate);
@@ -100,7 +159,7 @@ function dateInputLogic(){
                 document.querySelectorAll(".mini-input").forEach(elem=>{
                     elem.value ="";
                 })
-
+                validBackground(false);
                 document.getElementById("factory-back-btn").addEventListener("click", ()=>{
                     window.removeEventListener("keydown", resetDate);
                 }, {once:true});
