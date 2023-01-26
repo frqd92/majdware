@@ -33,25 +33,29 @@ function createAdderRow(div){
     const adderRow = elementCreator("div", ["class", "adder-row"], false, div);
     const dateDiv = elementCreator("div", ["class", "adder-date-div", "adder-td"], false, adderRow);
     for(let i=0;i<7;i++){
-        switch(i){
-            case 0:
-            case 1:
-            case 2:
-                elementCreator("input",["class", "adder-date-input"], false, dateDiv);
-                break;
-            case 3: 
-                elementCreator("input", ["class", "adder-desig-input", "adder-td"], false, adderRow);
-                break;
-            case 4:
-                elementCreator("input", ["class", "adder-credit-input", "adder-td"], false, adderRow);
-                break;
-            case 5:
-                elementCreator("input", ["class", "adder-debit-input", "adder-td"], false, adderRow);
-                break;
-            case 6:
-                elementCreator("input", ["class", "adder-saldo-input", "adder-td"], false, adderRow);
+        if(i===0 || i===1 || i===2){
+            elementCreator("input",["class", "adder-date-input"], false, dateDiv);
+            if(i===0 || i===1){
+                elementCreator("div",["class", "adder-date-divider"], "/", dateDiv); 
+            }
         }
+        if(i===3){
+            elementCreator("input", ["class", "adder-desig-input", "adder-td"], false, adderRow);
+        }
+        if(i===4){
+            elementCreator("input", ["class", "adder-credit-input", "adder-td"], false, adderRow);
+        }
+        if(i===5){
+            elementCreator("input", ["class", "adder-debit-input", "adder-td"], false, adderRow);
+        }
+        if(i===6){
+            elementCreator("input", ["class", "adder-saldo-input", "adder-td"], false, adderRow);
+        }
+
     }
+    document.querySelectorAll(".adder-date-input")[0].placeholder = "dd";
+    document.querySelectorAll(".adder-date-input")[1].placeholder = "mm";
+    document.querySelectorAll(".adder-date-input")[2].placeholder = "yy";
 }
 
 
