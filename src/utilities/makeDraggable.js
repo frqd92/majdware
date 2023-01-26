@@ -1,8 +1,8 @@
-export default function makeDraggable (element) {
+export default function makeDraggable (element, cl) {
     let currentPosX = 0, currentPosY = 0, previousPosX = 0, previousPosY = 0;
 
-    if (element.querySelector('.modal-upper')) {
-        element.querySelector('.modal-upper').onmousedown = dragMouseDown;
+    if (element.querySelector(`.${cl}`)) {
+        element.querySelector(`.${cl}`).onmousedown = dragMouseDown;
     } 
     else {
         element.onmousedown = dragMouseDown;
@@ -11,6 +11,7 @@ export default function makeDraggable (element) {
         e.preventDefault();
         previousPosX = e.clientX;
         previousPosY = e.clientY;
+
         document.onmouseup = closeDragElement;
         document.onmousemove = elementDrag;
     }
@@ -22,6 +23,7 @@ export default function makeDraggable (element) {
 
         previousPosX = e.clientX;
         previousPosY = e.clientY;
+
 
         element.style.top = (element.offsetTop - currentPosY) + 'px';
         element.style.left = (element.offsetLeft - currentPosX) + 'px';

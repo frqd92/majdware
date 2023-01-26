@@ -18,7 +18,7 @@ function createModal(){
 
     const inputDiv = elementCreator("div", ["class", "modal-input-div"], false, modalDiv)
     createInput(inputDiv);
-    makeDraggable(modalDiv)
+    makeDraggable(modalDiv, "modal-upper");
     const saveBtn = elementCreator("button", ["id", "modal-add-btn"], "Save", modalDiv);
 
     bgDiv.addEventListener("click", ()=>{

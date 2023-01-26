@@ -2,8 +2,10 @@ import elementCreator from "/src/utilities/createDomElement";
 import btn from '/src/Assets/back.png';
 import { getUserInfo } from '/src/index';
 import '/src/styles/companyPage.css';
+import '/src/styles/movimentos.css';
 import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
+import { generateTable } from "../tableLogic";
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 
@@ -13,20 +15,17 @@ export function makeFactoryPage(e){
 }
 
 
-
 function generateMainFactory(){
     const main = elementCreator("div", ["class", "factory-main"], false, document.body);
     const movimentos = elementCreator("h1", ["class", "movimentos-title"], "Movimentos de Contas Correntes", main);
     const exportBtn = elementCreator("button", ["id", "export-btn"], "EXPORT", main);
     const filterDiv = elementCreator("div", ["class", "filter-div"], false, main);
-    const movimentosDiv = elementCreator("div", ["class", "movimentos-div"], false, main);
-
     filterDate(filterDiv);
+
+    const addMovimentoBtn = elementCreator("button", ["id", "add-movimento-btn"], "+", main);
+    const tableDiv = elementCreator("div", ["class", "table-div"], false, main);
+    generateTable(tableDiv)
 }
-
-
-
-
 
 
 
