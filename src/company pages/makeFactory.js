@@ -5,7 +5,7 @@ import '/src/styles/companyPage.css';
 import '/src/styles/movimentos.css';
 import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
-import { generateTable } from "../tableLogic";
+import { generateTable } from "./tableLogic";
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 
@@ -31,7 +31,6 @@ function generateMainFactory(){
 
 function generateHeader(e){
     const header = elementCreator("div", ["class", "factory-header"], false,document.body);
-
     const backBtnDiv = elementCreator("div", ["class", "back-btn-div"], false, header);
     const backBtn = document.createElement("img");
     backBtn.src = btn;

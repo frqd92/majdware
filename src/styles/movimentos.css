@@ -30,7 +30,7 @@
     align-items: center;
     z-index: 100;
     box-shadow: 0px -1px 2px rgba(171, 172, 198, 0.432);
-
+    border-bottom: 1px solid rgba(0, 0, 0, 0.242);
 }
 
 .adder-upper{
@@ -39,7 +39,23 @@
     cursor: grab;
     height: 20px;
     background-color: rgba(168, 168, 172, 0.191);
-
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.adder-head-close{
+    user-select: none;
+    color: rgba(0, 0, 0, 0.631);
+    padding: 0 10px;
+    height: 100%;
+    font-size: 1.2rem;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: rgba(218, 91, 60, 0.322);
+    cursor: pointer;
+}
+.adder-head-close:hover{
+    background: rgba(201, 44, 4, 0.467);
+    color: rgba(0, 0, 0, 0.881);
 }
 .adder-upper:active{
     cursor: grabbing;
@@ -62,6 +78,7 @@
     text-align: center;
     min-width: 105px;
     padding: 3px 0px;
+    border-right: 2px solid rgba(188, 188, 199, 0.202);
 }
 
 .adder-header-row-div{
@@ -75,13 +92,19 @@
 }
 .adder-row input{
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.532);
+    border:  1px solid rgba(188, 188, 199, 0.802);
+
+}
+.adder-row input::placeholder{
+    color: rgba(54, 51, 51, 0.311);
+    user-select: none;
 }
 .adder-td{
     min-width: 80px;
     height: 30px;
+
 }
 
 .adder-date-div{
@@ -91,13 +114,11 @@
 }
 
 .adder-date-input{
-
     width: calc(100% / 3);
+
+
 }
-.adder-date-input::placeholder{
-    color: rgba(54, 51, 51, 0.311);
-    user-select: none;
-}
+
 .adder-date-input:nth-child(1){
     border-right: none;
 }
@@ -112,11 +133,63 @@
     user-select: none;
     height: 100%;
     font-size: 1.8rem;
-    border-top:1px solid rgba(0, 0, 0, 0.532);
-    border-bottom:1px solid rgba(0, 0, 0, 0.532);
+    border-top: 1px solid rgba(6, 18, 245, 0.302);
+    border-bottom: 1px solid rgba(6, 18, 245, 0.302);
+
+}
+
+
+.adder-desig-div{
+
+    display: flex;
+    z-index: 10000;
+}
+.adder-desig-div input{
+    outline: none;
+    font-size: 1.2rem;
+    transition: font-size 0.1s linear;
+
+}
+.adder-desig-div input:nth-child(1){
+    width: 25%;
+    border-right: 1px solid rgba(0, 0, 0, 0.016);
+}
+.adder-desig-div input:nth-child(2){
+    width: 75%;
+}
+.adder-desig-input{
+
+    outline: none;
+     border: none;
+
+}
+
+.adder-desig-input-num{
+    border: none;
+    outline: none;
+
 
 
 }
+
+
+.new-row-arrow{
+    width: 60px;
+    filter:blur(1px) drop-shadow(0px 2px 3px rgb(12, 211, 215));
+    cursor: pointer;
+    -webkit-user-drag: none;
+}
+
+.new-row-arrow:hover{
+    transform: scale(1.05);
+    filter:blur(1px) drop-shadow(0px 2px 6px rgb(12, 211, 215));
+}
+.new-row-arrow:active{
+    transform: scale(1);
+    filter:blur(1px) drop-shadow(0px 0px 1px rgb(2, 131, 133));
+}
+
+
 
 
 
