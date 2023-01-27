@@ -79,8 +79,8 @@ export const rowFact = ()=>{
         //saldo
         saldoInput.addEventListener('paste', (e) => e.preventDefault());
         saldoInput.addEventListener("input", ()=>{saldoInput.value="";})
-        saldoInput.addEventListener("focus", (e)=>{subtract()});
-        saldoInput.addEventListener("focusout", ()=>{subtract()});
+        saldoInput.addEventListener("focus", calculateSaldo);
+        // saldoInput.addEventListener("focusout", ()=>{subtract()});
 
 
         //functions
@@ -103,9 +103,24 @@ export const rowFact = ()=>{
                 }
             });
         }
-        function subtract(){
-            saldoInput.value = Number(debitInput.value) - Number(creditInput.value);
+
+
+        function calculateSaldo(){
+            const allSaldo = document.querySelectorAll(".adder-saldo-input");
+            const allCredito = document.querySelectorAll(".adder-credit-input");
+            const allDebito = document.querySelectorAll(".adder-debit-input");
+            for(let i=0;i<allSaldo.length;i++){
+                if(i===0){
+                    allSaldo[0].value = Number(allDebito[0].value) - Number(allCredito[0].value);
+                }
+                else{
+                    allSaldo[i].value = Number(allSaldo[i-1].value) + Number(allDebito[i].value) - Number(allCredito[i].value);
+                }
+            }
         }
+
+
+
 
 
 
