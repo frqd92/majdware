@@ -6,7 +6,6 @@ import elementCreator from "./utilities/createDomElement";
 
 
 
-
 export function companyData(name){
     companyArr.push(name);
 }
@@ -20,6 +19,7 @@ export default function updateCompanyList(){
     companyArr.forEach((elem, index)=>{
         const row = elementCreator("div", ["class", ["company-row"]], `${companyArr[index]}`, div);
         row.addEventListener("click", makeFactoryPage);
+        
         saveArray.push({factoryName:elem})
     })
     writeCompanies(saveArray);

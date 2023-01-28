@@ -1,7 +1,7 @@
 import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
-import { mainArray, feedTables, tempArray } from "../arrayTracker";
+import { mainArray, feedTables, tempArray, currentFactory } from "../arrayTracker";
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
 
@@ -9,7 +9,7 @@ function renderToTable(fact){
         const obj = {};
 
         obj.factory = fact;
-
+        obj.num = 0;
         const rowDates = elem.querySelectorAll(".adder-date-input");
         obj.date = rowDates[0].value + "/" + rowDates[1].value + "/" + rowDates[2].value;
 
@@ -142,9 +142,15 @@ export const rowFact = ()=>{
             const allSaldo = document.querySelectorAll(".adder-saldo-input");
             const allCredito = document.querySelectorAll(".adder-credit-input");
             const allDebito = document.querySelectorAll(".adder-debit-input");
+            const lastSaldo = [...document.querySelectorAll(".td-saldo")].pop();
+            let lastValue=0;
+            if(lastSaldo!==undefined){
+                lastValue = lastSaldo.textContent;
+            }
+    
             for(let i=0;i<allSaldo.length;i++){
                 if(i===0){
-                    allSaldo[0].value = Number(allDebito[0].value) - Number(allCredito[0].value);
+                    allSaldo[0].value =Number(lastValue) + Number(allDebito[0].value) - Number(allCredito[0].value);
                 }
                 else{
                     allSaldo[i].value = Number(allSaldo[i-1].value) + Number(allDebito[i].value) - Number(allCredito[i].value);

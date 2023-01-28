@@ -6,6 +6,7 @@ import '/src/styles/movimentos.css';
 import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
+import {currentFact} from "/src/arrayTracker"
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 
@@ -39,10 +40,11 @@ function generateHeader(e){
     elementCreator("p", false, "العودة إلى الصفحة الرئيسية", backBtnDiv);
 
     elementCreator("h1", ["class", "factory-header-title"], `${e.target.innerText}`, header);
-
+    currentFact(e.target.innerText);
     const infoDiv = elementCreator("div", ["class", "factory-info-div"], false, header);
     const namePicDiv = elementCreator("div", ["class", "factory-namePic-div"], false, infoDiv)
     elementCreator("p", ["class", "factory-user-name"],`${getUserInfo("name")}`, namePicDiv);
+
     const profilePic = document.createElement("img");
     profilePic.src = getUserInfo("profile-pic");
     namePicDiv.appendChild(profilePic);
