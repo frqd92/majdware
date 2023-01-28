@@ -1,7 +1,8 @@
 import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
-import { mainArray, feedTables, tempArray, currentFactory } from "../arrayTracker";
+import { mainArray, feedTables, tempArray} from "../arrayTracker";
+import {writeMovements} from "/src/index.js";
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
 
@@ -24,7 +25,7 @@ function renderToTable(fact){
         mainArray.push(obj);
         tempArray.push(obj);
     })
-
+    writeMovements(mainArray);
     feedTables();
 }
 

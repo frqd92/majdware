@@ -1,7 +1,7 @@
 import elementCreator from "./utilities/createDomElement";
 export let mainArray = [];
 export let tempArray = [];
-let currentFactory = "";
+export let currentFactory = "";
 export function feedTables(){
     //
     const table = document.getElementById("main-table");
@@ -20,11 +20,11 @@ export function feedTables(){
 
 function updateNum(){
     const numbers = document.querySelectorAll(".td-num");
-    const filterFact = mainArray.filter(obj=>obj.factory===currentFactory)
+    const filterFact = mainArray.filter(obj=>obj.factory===currentFactory);
     for(let i=0;i<filterFact.length;i++){
         numbers[i].innerHTML = i;
     }
-    
+
 
 
 

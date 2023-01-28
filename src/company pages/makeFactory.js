@@ -7,16 +7,19 @@ import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
 import {currentFact} from "/src/arrayTracker"
+
+
+
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 
     document.body.classList.add("body-factory");
     generateHeader(e);
-    generateMainFactory();
+    generateMainFactory(e);
 }
 
 
-function generateMainFactory(){
+function generateMainFactory(e){
     const main = elementCreator("div", ["class", "factory-main"], false, document.body);
     const movimentos = elementCreator("h1", ["class", "movimentos-title"], "Movimentos de Contas Correntes", main);
     const exportBtn = elementCreator("button", ["id", "export-btn"], "EXPORT", main);

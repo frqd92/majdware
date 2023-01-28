@@ -3,7 +3,7 @@ import { makeFactoryPage } from "./company pages/makeFactory";
 let companyArr = [];
 let saveArray = [];
 import elementCreator from "./utilities/createDomElement";
-
+import { mainArray } from "./arrayTracker";
 
 
 export function companyData(name){
@@ -22,7 +22,8 @@ export default function updateCompanyList(){
         
         saveArray.push({factoryName:elem})
     })
-    writeCompanies(saveArray);
+        writeCompanies(saveArray);
+    
     companyArr = [];
 }
 

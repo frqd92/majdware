@@ -34,13 +34,26 @@ import {getDatabase, ref, set, child, update, remove, get} from "firebase/databa
 // var db = getDatabase();
 
 const database = getDatabase(app);
-
+//write when user logs in
 export function writeCompanies(value) {
   const uid = auth.currentUser.uid;
   const db = getDatabase();
   set(ref(db, 'users/' + uid + "/factories/"), value);
 }
 
+//write when user clicks company name
+
+export function writeMovements(value) {
+  const uid = auth.currentUser.uid;
+  const db = getDatabase();
+  set(ref(db, 'users/' + uid + "/movements/"), value);
+}
+
+
+
+
+
+//when user logins in
  export function readCompanies(){
   const dbRef = ref(getDatabase(app));
   const uid = auth.currentUser.uid;
@@ -54,7 +67,20 @@ export function writeCompanies(value) {
     console.error(error);
   });
 }
+//when user clicks company name
+export function readCompanyData(){
+  const dbRef = ref(getDatabase(app));
+  const uid = auth.currentUser.uid;
+  get(child(dbRef, 'users/' + uid + "/movements/")).then((snapshot) => {
+    if (snapshot.exists()) {
 
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
 export function getUserInfo(value){
   const user = auth.currentUser;
   switch(value){
