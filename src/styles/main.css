@@ -38,6 +38,7 @@ body{
     left: 25%;
     bottom: 73px;
     filter: brightness(1.03) contrast(3) grayscale(0.6);
+    -webkit-user-drag: none;
 }
 .login-div h1{
     padding-bottom: 20px;

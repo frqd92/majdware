@@ -171,9 +171,15 @@
 
 
 }
-
+.adder-header-btn-div{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items:center;
+}
 
 .new-row-arrow{
+    grid-column: 2 / 3;
     width: 60px;
     filter:blur(1px) drop-shadow(0px 2px 3px rgb(12, 211, 215));
     cursor: pointer;
@@ -190,10 +196,38 @@
 }
 
 
+.add-to-table-btn{
+    justify-self: end;
+    align-self: flex-end;
+    grid-column: 3 / 4;
+    border: 1px solid rgba(255, 255, 255, 0.206);
+    padding: 5px 20px;
+    font-family: "amiri";
+    color: rgba(208, 222, 211, 0.881);
+    letter-spacing: 0.05rem;
+    background-color: rgba(255, 255, 255, 0.195);
+    user-select: none;
+    cursor: pointer;
+    border-radius: 20px 0px 0px 20px;
+    border-right: none;
+    font-size: 1rem;
+    transition: font-size 0.1s ease-in-out;
+    text-shadow: 0px 1px 8px rgba(0, 0, 0, 0.626);
+}
 
+.add-to-table-btn:hover{
+    animation: addTableAnim infinite 2s linear;
+    font-size: 1.1rem;
+}
+.add-to-table-btn:active{
+    font-size: 1rem;
+}
 
-
-
+@keyframes addTableAnim {
+    0%{ box-shadow: 0px 0px 1px white; background-color: rgba(255, 255, 255, 0.195);}
+    50%{ box-shadow: 0px 0px 8px rgb(20, 145, 198); background-color: rgba(255, 255, 255, 0.175)}
+    100%{ box-shadow: 0px 0px 0px white; background-color: rgba(255, 255, 255, 0.168)}
+}
 
 #add-movimento-btn{
     cursor: pointer;

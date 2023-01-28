@@ -1,6 +1,37 @@
 import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
+import { mainArray, feedTables, tempArray } from "../arrayTracker";
+function renderToTable(fact){
+    const allRows = document.querySelectorAll(".adder-row");
+
+    allRows.forEach((elem, index)=>{
+        const obj = {};
+
+        obj.factory = fact;
+
+        const rowDates = elem.querySelectorAll(".adder-date-input");
+        obj.date = rowDates[0].value + "/" + rowDates[1].value + "/" + rowDates[2].value;
+
+        const faturaNum = elem.querySelector(".adder-desig-input-num").value;
+        const desig = elem.querySelector(".adder-desig-input").value;
+        obj.des = `${faturaNum} ${desig}`;
+
+        obj.credito = elem.querySelector(".adder-credit-input").value;
+        obj.debito = elem.querySelector(".adder-debit-input").value;
+        obj.saldo = elem.querySelector(".adder-saldo-input").value;
+
+        mainArray.push(obj);
+        tempArray.push(obj);
+    })
+
+    feedTables();
+}
+
+
+
+
+
 
 export const rowFact = ()=>{
     const row = document.createElement("div");
@@ -75,12 +106,14 @@ export const rowFact = ()=>{
         //debit/credit
         emptyZero(creditInput);
         emptyZero(debitInput);
-   
+        debitInput.addEventListener("focusout", calculateSaldo);
+        creditInput.addEventListener("focusout", calculateSaldo);
+
         //saldo
         saldoInput.addEventListener('paste', (e) => e.preventDefault());
         saldoInput.addEventListener("input", ()=>{saldoInput.value="";})
         saldoInput.addEventListener("focus", calculateSaldo);
-        // saldoInput.addEventListener("focusout", ()=>{subtract()});
+        saldoInput.addEventListener("focusout", calculateSaldo);
 
 
         //functions
@@ -159,15 +192,24 @@ export function movAdder(){
     const rowsDiv = elementCreator("div", ["class", "adder-header-row-div"], false, adderDiv);
 
     rowsDiv.appendChild(rowFact().row);
+    const btnDiv = elementCreator("div", ["class", "adder-header-btn-div"], false, adderDiv);
 
     const newRowArrow = document.createElement("img");
     newRowArrow.src = arrowDown;
     newRowArrow.classList.add("new-row-arrow");
-    adderDiv.appendChild(newRowArrow);
+    btnDiv.appendChild(newRowArrow);
+
+
     newRowArrow.addEventListener("click", ()=>{
         rowsDiv.appendChild(rowFact().row);
     })
-
+    
+    const addToTableBtn = elementCreator("div", ["class", "add-to-table-btn"], "حفظ", btnDiv);
+    addToTableBtn.addEventListener("click", ()=>{
+        const factory = document.querySelector(".factory-header-title").innerText;
+        renderToTable(factory);
+        adderDiv.remove();
+    })
 }
 
 
