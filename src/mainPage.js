@@ -5,11 +5,12 @@ import arrowDown from '/src/Assets/arrowDown.png';
 import { getUserInfo } from ".";
 import '/src/styles/companyList.css';
 import '/src/styles/main.css'
+import { mainArray } from "./arrayTracker";
 
 
 export default function generateMain(){
     document.body.innerHTML="";
-    elementCreator("p", ["class", "welcome-text"],`${getUserInfo("name")} أَهْلًا وَسَهْلًا`, document.body);
+    const welcome = elementCreator("p", ["class", "welcome-text"],`${getUserInfo("name")} أَهْلًا وَسَهْلًا`, document.body);
     const companyDiv = elementCreator("div", ["class", "company-div"], false, document.body);
     elementCreator("p", ["class", "title-text"],'Companies', companyDiv);
     const searchBar = elementCreator("input", ["id", "search-bar"], false,companyDiv )
@@ -23,6 +24,9 @@ export default function generateMain(){
     if(listCompaniesDiv.children.length===0){
         emptyCompanyList(listCompaniesDiv);
     }
+
+    //for testing, delete
+    welcome.addEventListener("click", ()=>{console.log(mainArray)})
 }
 
 function emptyCompanyList(div){

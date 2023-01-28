@@ -24,6 +24,7 @@ function updateNum(){
     for(let i=0;i<filterFact.length;i++){
         numbers[i].innerHTML = i;
     }
+    
 
 
 
