@@ -7,7 +7,7 @@ import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
 import {currentFact} from "/src/arrayTracker"
-
+import { readCompanyData } from "..";
 
 
 export function makeFactoryPage(e){
@@ -16,6 +16,7 @@ export function makeFactoryPage(e){
     document.body.classList.add("body-factory");
     generateHeader(e);
     generateMainFactory(e);
+    readCompanyData()
 }
 
 

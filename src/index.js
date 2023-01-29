@@ -1,6 +1,7 @@
 import generateMain from "./mainPage";
 import loginPage from "./loginPage";
 import { feedCompanies } from "./companyList";
+
 //----------------------------------------------------------------------------------------------------------------------------------//
 
 // Import the functions you need from the SDKs you need
@@ -30,6 +31,7 @@ const auth = getAuth(app);
 //This part is for crud
 //initialize firebase databse
 import {getDatabase, ref, set, child, update, remove, get} from "firebase/database";
+import { feedTables} from "./arrayTracker";
 
 // var db = getDatabase();
 
@@ -73,7 +75,9 @@ export function readCompanyData(){
   const uid = auth.currentUser.uid;
   get(child(dbRef, 'users/' + uid + "/movements/")).then((snapshot) => {
     if (snapshot.exists()) {
-
+      console.log("fart")
+      feedTables(true, snapshot.val());
+   
     } else {
       console.log("No data available");
     }

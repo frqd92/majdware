@@ -2,32 +2,34 @@ import elementCreator from "./utilities/createDomElement";
 export let mainArray = [];
 export let tempArray = [];
 export let currentFactory = "";
-export function feedTables(){
-    //
+
+export function feedTables(isFirebase, firebaseArr){
     const table = document.getElementById("main-table");
-    tempArray.forEach((elem, index)=>{
-        let keys = Object.keys(elem);
-        let values = Object.values(elem);
+    let arr = tempArray;
+    if(isFirebase){
+        document.querySelectorAll(".table-row").forEach(elem=>{elem.remove();})
+        arr = firebaseArr;
+    }
+
+    arr.forEach((elem, index)=>{
         const tableRow = elementCreator("tr", ["class", "table-row"], false, table);
         const classListArr = ["","td-num", "td-date", "td-desig", "td-credit", "td-debit", "td-saldo"];
+        const objKeyArr = ["","", elem.date, elem.des, elem.credito, elem.debito, elem.saldo];
         for(let i=1;i<7;i++){
-            elementCreator("td", ["class", "table-td", `${classListArr[i]}`], `${values[i]}`, tableRow);
+            elementCreator("td", ["class", "table-td", `${classListArr[i]}`], `${objKeyArr[i]}`, tableRow);
         }
     })
-    updateNum();
+    updateNum(arr);
     tempArray=[];
 }
 
-function updateNum(){
+
+function updateNum(arr){
     const numbers = document.querySelectorAll(".td-num");
-    const filterFact = mainArray.filter(obj=>obj.factory===currentFactory);
+    const filterFact = arr.filter(obj=>obj.factory===currentFactory);
     for(let i=0;i<filterFact.length;i++){
         numbers[i].innerHTML = i;
     }
-
-
-
-
 }
 
 export function currentFact(fact){

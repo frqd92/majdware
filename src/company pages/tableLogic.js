@@ -2,6 +2,7 @@ import elementCreator from "../utilities/createDomElement";
 import { movAdder } from "./makeRow";
 import {readCompanyData} from "/src/index"
 import { mainArray, currentFactory } from "../arrayTracker";
+import { feedTables } from "../arrayTracker";
 
 export function generateTable(div){
     const table = elementCreator("table", ["id", "main-table"], false, div);
@@ -18,12 +19,7 @@ export function generateTable(div){
     };
     document.getElementById("add-movimento-btn").addEventListener("click", movAdder);
     console.log(currentFactory)
-    const names = mainArray.filter(obj=>obj.factory===currentFactory);
-    if(names.length>0){
-        for(let i=0;i<names.length;i++){
-            //you left off here
-        }
-    }
+
 }        
 
 

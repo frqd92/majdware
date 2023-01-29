@@ -5,7 +5,6 @@ import { mainArray, feedTables, tempArray} from "../arrayTracker";
 import {writeMovements} from "/src/index.js";
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
-
     allRows.forEach((elem, index)=>{
         const obj = {};
 
@@ -26,7 +25,7 @@ function renderToTable(fact){
         tempArray.push(obj);
     })
     writeMovements(mainArray);
-    feedTables();
+    feedTables(false);
 }
 
 
