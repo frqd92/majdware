@@ -1,0 +1,80 @@
+
+.table-div{
+    background: rgba(255, 255, 255, 0.327);
+    border-radius: 15px 0px 0px 15px;
+    overflow-y: scroll;
+    height: 100%;
+
+}
+#main-table{
+
+
+}
+.table-header{
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    background-color: rgba(163, 158, 158, 0.891);
+
+}
+.table-th{
+    border: none;
+    padding: 3px 0px;
+    font-size: 1.4rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(0, 17, 76, 0.77);
+    text-shadow: 0px 0px 1px rgba(147, 176, 185, 0.852);
+    border-right: 1px solid rgba(240, 240, 240, 0.1);
+    border-left: 1px solid rgba(240, 240, 240, 0.1);
+}
+
+.table-td{
+text-align: center;
+padding: 5px 0px;
+}
+
+.table-row{
+    font-family: cairo;
+    font-size: 1.2rem;
+    color: rgb(16, 17, 17);
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.267);
+}
+.table-th:first-child{
+    border-radius: 15px 0px 0px 0px;
+}
+.td-desig, .td-date, .td-num{
+    font-size: 1.1rem;
+}
+.td-credit, .td-debit, .td-saldo{
+    font-family:Arial, Helvetica, sans-serif;
+    letter-spacing: 0.1rem;
+    text-shadow: none;
+    
+}
+
+.table-row:nth-child(even){
+    background: rgba(20, 19, 19, 0.169);
+}
+.table-row:nth-child(odd){
+    background: rgba(63, 63, 103, 0.275);
+}
+
+/* width */
+.table-div::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .table-div::-webkit-scrollbar-track {
+    background: #9d9c9c;
+  }
+  
+  /* Handle */
+  .table-div::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.621);
+  }
+  
+  /* Handle on hover */
+  .table-div::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

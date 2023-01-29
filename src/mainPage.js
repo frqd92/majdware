@@ -5,7 +5,6 @@ import arrowDown from '/src/Assets/arrowDown.png';
 import { getUserInfo } from ".";
 import '/src/styles/companyList.css';
 import '/src/styles/main.css'
-import { mainArray } from "./arrayTracker";
 
 export default function generateMain(){
 
@@ -25,8 +24,6 @@ export default function generateMain(){
         emptyCompanyList(listCompaniesDiv);
     }
 
-    //for testing, delete
-    welcome.addEventListener("click", ()=>{console.log(mainArray)})
 }
 
 function emptyCompanyList(div){
