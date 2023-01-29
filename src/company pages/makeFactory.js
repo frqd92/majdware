@@ -6,8 +6,10 @@ import '/src/styles/movimentos.css';
 import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
-import {currentFact} from "/src/arrayTracker"
+import {currentFact, currentFactory} from "/src/arrayTracker"
 import { readCompanyData } from "..";
+import { snapshotArr } from "../arrayTracker";
+
 
 
 export function makeFactoryPage(e){
@@ -16,7 +18,8 @@ export function makeFactoryPage(e){
     document.body.classList.add("body-factory");
     generateHeader(e);
     generateMainFactory(e);
-    readCompanyData()
+    readCompanyData(currentFactory);
+  
 }
 
 

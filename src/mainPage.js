@@ -7,8 +7,8 @@ import '/src/styles/companyList.css';
 import '/src/styles/main.css'
 import { mainArray } from "./arrayTracker";
 
-
 export default function generateMain(){
+
     document.body.innerHTML="";
     const welcome = elementCreator("p", ["class", "welcome-text"],`${getUserInfo("name")} أَهْلًا وَسَهْلًا`, document.body);
     const companyDiv = elementCreator("div", ["class", "company-div"], false, document.body);

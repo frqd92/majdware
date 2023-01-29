@@ -31,8 +31,8 @@ const auth = getAuth(app);
 //This part is for crud
 //initialize firebase databse
 import {getDatabase, ref, set, child, update, remove, get} from "firebase/database";
-import { feedTables} from "./arrayTracker";
-
+import { feedTables, updateSnapshot} from "./arrayTracker";
+import filterByFact from "./utilities/filterName";
 // var db = getDatabase();
 
 const database = getDatabase(app);
@@ -44,11 +44,10 @@ export function writeCompanies(value) {
 }
 
 //write when user clicks company name
-
-export function writeMovements(value) {
+export function writeMovements(value, fact) {
   const uid = auth.currentUser.uid;
   const db = getDatabase();
-  set(ref(db, 'users/' + uid + "/movements/"), value);
+  set(ref(db, 'users/' + uid + "/movements/" + fact), value);
 }
 
 
@@ -69,14 +68,18 @@ export function writeMovements(value) {
     console.error(error);
   });
 }
+
+
+
 //when user clicks company name
-export function readCompanyData(){
+export function readCompanyData(fact){
   const dbRef = ref(getDatabase(app));
   const uid = auth.currentUser.uid;
-  get(child(dbRef, 'users/' + uid + "/movements/")).then((snapshot) => {
+  get(child(dbRef, 'users/' + uid + "/movements/" + fact)).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log("fart")
-      feedTables(true, snapshot.val());
+      const byFactory = filterByFact(snapshot.val(), fact);
+      updateSnapshot(byFactory);
+      feedTables(byFactory);
    
     } else {
       console.log("No data available");

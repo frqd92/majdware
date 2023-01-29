@@ -1,15 +1,12 @@
 import elementCreator from "./utilities/createDomElement";
+import { readCompanyData } from ".";
 export let mainArray = [];
 export let tempArray = [];
 export let currentFactory = "";
+export let snapshotArr = [];
 
-export function feedTables(isFirebase, firebaseArr){
+export function feedTables(arr){
     const table = document.getElementById("main-table");
-    let arr = tempArray;
-    if(isFirebase){
-        document.querySelectorAll(".table-row").forEach(elem=>{elem.remove();})
-        arr = firebaseArr;
-    }
 
     arr.forEach((elem, index)=>{
         const tableRow = elementCreator("tr", ["class", "table-row"], false, table);
@@ -20,7 +17,7 @@ export function feedTables(isFirebase, firebaseArr){
         }
     })
     updateNum(arr);
-    tempArray=[];
+
 }
 
 
@@ -34,23 +31,9 @@ function updateNum(arr){
 
 export function currentFact(fact){
     currentFactory = fact
+    return currentFactory;
 }
-const testObject = {
-    factory: "alexandrino",
-    num: 0,
-    date: "22/01/23",
-    des: "9 tiles inv",
-    credito: 100000,
-    debito: 120000,
-    saldo : -20000,
+
+export function updateSnapshot(arr){
+    snapshotArr = arr;
 }
-const testObject2 = {
-    factory: "alexandrino",
-    num: 1,
-    date: "23/01/23",
-    des: "10 transporte tiles",
-    credito: 130000,
-    debito: 140000,
-    saldo : -10000,
-}
-const arr = [testObject, testObject2];

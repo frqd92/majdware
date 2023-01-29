@@ -3,11 +3,14 @@ import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
 import { mainArray, feedTables, tempArray} from "../arrayTracker";
 import {writeMovements} from "/src/index.js";
+import { snapshotArr } from "../arrayTracker";
+import filterByFact from "../utilities/filterName";
+import { readCompanyData } from "..";
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
+    let  tempArray = [];
     allRows.forEach((elem, index)=>{
         const obj = {};
-
         obj.factory = fact;
         obj.num = 0;
         const rowDates = elem.querySelectorAll(".adder-date-input");
@@ -21,11 +24,14 @@ function renderToTable(fact){
         obj.debito = elem.querySelector(".adder-debit-input").value;
         obj.saldo = elem.querySelector(".adder-saldo-input").value;
 
-        mainArray.push(obj);
         tempArray.push(obj);
     })
-    writeMovements(mainArray);
-    feedTables(false);
+    tempArray.forEach((elem)=>{
+        snapshotArr.push(elem);
+    })
+    writeMovements(snapshotArr, fact);
+    feedTables(tempArray);
+    tempArray=[];
 }
 
 
