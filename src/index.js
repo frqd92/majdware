@@ -79,7 +79,7 @@ export function readCompanyData(fact){
     if (snapshot.exists()) {
       const byFactory = filterByFact(snapshot.val(), fact);
       updateSnapshot(byFactory);
-      feedTables(byFactory);
+      feedTables(byFactory, true);
    
     } else {
       console.log("No data available");

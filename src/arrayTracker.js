@@ -6,9 +6,7 @@ export let mainSnapshotArr = [];
 
 export function feedTables(arr){
     const table = document.getElementById("main-table");
-    let newAdded = 0;
-    arr.forEach((elem, index)=>{
-        newAdded++;
+    arr.forEach(elem=>{
         const tableRow = elementCreator("tr", ["class", "table-row"], false, table);
         const classListArr = ["","td-num", "td-date", "td-desig", "td-credit", "td-debit", "td-saldo"];
         const objKeyArr = ["","", elem.date, elem.des, elem.credito, elem.debito, elem.saldo];
@@ -16,18 +14,18 @@ export function feedTables(arr){
             elementCreator("td", ["class", "table-td", `${classListArr[i]}`], `${objKeyArr[i]}`, tableRow);
         }
     })
-    console.log(newAdded)
-    updateNum(arr);
+    updateNum();
 
 }
 
 
-function updateNum(arr){
-    console.log(arr);
+function updateNum(){
     const numbers = document.querySelectorAll(".td-num");
-    for(let i=0;i<arr.length;i++){
-        numbers[i].innerHTML = i;
-    }
+        for(let i=0;i<snapshotArr.length;i++){
+            numbers[i].innerHTML = i;
+        }
+    
+
 }
 
 export function currentFact(fact){

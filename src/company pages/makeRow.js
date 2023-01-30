@@ -30,7 +30,7 @@ function renderToTable(fact){
         snapshotArr.push(elem);
     })
     writeMovements(snapshotArr, fact);
-    feedTables(tempArray);
+    feedTables(tempArray, false);
     tempArray=[];
 }
 

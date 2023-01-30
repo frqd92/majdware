@@ -1,9 +1,9 @@
 import arrowImg from '/src/Assets/arrow-other.png';
 import elementCreator from './createDomElement';
-export default function filterDate(div){
-    elementCreator("p", ["class", "filter-text"], "Date Range ", div);
-    const miniInputDiv = elementCreator("div", ["class", "mini-inputs-div"], false, div);
+import {filterTable, defilterTable} from '../filterByDate';
 
+export default function filterDate(div){
+    const miniInputDiv = elementCreator("div", ["class", "mini-inputs-div"], false, div);
     for(let i=0;i<6;i++){
         let input;
         if(i<3){
@@ -61,7 +61,7 @@ function checkForZero(){
                     }
                 }
             }
-            if(e.key === "ArrowRight" && i!==5){
+            if((e.key === "ArrowRight" || e.key === "Enter") && i!==5){
                 document.querySelectorAll(".mini-input")[i+1].focus();
             }
 
@@ -71,11 +71,6 @@ function checkForZero(){
         })
     })
 }
-
-
-
-
-
 
 
 function dateInputLogic(){
@@ -99,7 +94,9 @@ function dateInputLogic(){
                     elem.nextSibling.nextSibling.focus();
                 }
                 if(isInputValid()){
-                    validBackground(true);
+                    const validDates = validBackground(true);
+                    filterTable(validDates);
+
                 }
                 else{
                     validBackground(false);
@@ -111,11 +108,22 @@ function dateInputLogic(){
     function validBackground(boo){
         const allInputElem = document.querySelectorAll(".date-filter");
         if(boo){
-            allInputElem.forEach(elem=>{
+            let date1=[], date2 = [];
+            let leftInput = [0,2,4];
+            let rightInput = [6,8,10];
+            allInputElem.forEach((elem,index)=>{
                 elem.classList.add("valid-input-bg");
+                if(leftInput.includes(index)){
+                    date1.push(elem.value);
+                }
+                else if(rightInput.includes(index)){
+                    date2.push(elem.value);
+                }
             });
+            return [date1,date2];
         }
         else{
+            defilterTable()
             allInputElem.forEach(elem=>{
                 elem.classList.remove("valid-input-bg");
             })
@@ -158,6 +166,7 @@ function dateInputLogic(){
             if(document.querySelector(".mini-input")!==null){
                 document.querySelectorAll(".mini-input").forEach(elem=>{
                     elem.value ="";
+                    document.querySelector(".mini-input-left").focus()
                 })
                 validBackground(false);
                 document.getElementById("factory-back-btn").addEventListener("click", ()=>{
