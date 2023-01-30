@@ -10,7 +10,7 @@ export function generateTable(div){
 
 
     for(let i=0;i<6;i++){
-        elementCreator("col", ["class", `col-${i}`], false, table);
+
         switch(i){
             case 0: 
             const num = elementCreator("th", ["class", "table-th"], "Nº", tableHeader); 
