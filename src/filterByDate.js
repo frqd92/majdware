@@ -26,11 +26,9 @@ export function filterTable(dateArr){
                 tdDates[index].parentElement.classList.add("hidden-row");
             }
         }
-
     }
-
     for(let index = 0; index<tdDates.length;index++){
-        const [dd,mm,] = toDates[index];
+        const [dd,mm,yy] = toDates[index];
         if(!tdDates[index].parentElement.classList.contains("hidden-row")){
             if(mm===fromDate[1] && dd<fromDate[0]){
                 tdDates[index].parentElement.classList.add("hidden-row");
@@ -39,11 +37,22 @@ export function filterTable(dateArr){
                 tdDates[index].parentElement.classList.add("hidden-row");
             }
         }
+
     }
 
 
-
 }
+
+/*
+            console.log(mm)
+            console.log(yy)
+            console.log("---");
+            console.log(fromDate[1])
+            console.log(toDate[1])
+            console.log("---");
+
+*/
+
 
 
 

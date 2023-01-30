@@ -81,9 +81,7 @@ function dateInputLogic(){
             if(e.inputType === "deleteContentBackward"){
                 validBackground(false);
                 elem.value="";
-                if(index!==0){
-                    elem.previousSibling.previousSibling.focus();
-                }
+
             }
             if( isNaN(e.data)|| elem.value.length>2){
                 elem.value = elem.value.substring(0, elem.length-1);
@@ -163,11 +161,25 @@ function dateInputLogic(){
     function resetDate(e){
         
         if(e.key==="Delete"){
-            if(document.querySelector(".mini-input")!==null){
-                document.querySelectorAll(".mini-input").forEach(elem=>{
-                    elem.value ="";
-                    document.querySelector(".mini-input-left").focus()
+            const left = document.querySelectorAll(".mini-input-left");
+            const right = document.querySelectorAll(".mini-input-right");
+            let emptyRight = true;
+            right.forEach(elem=>{
+                if(elem.value.length>0){
+                    emptyRight=false;
+                    elem.value="";
+                }
+                right[0].focus()
+            })
+            if(emptyRight){
+                left.forEach(elem=>{
+                    if(elem.value){
+                        elem.value="";
+                    }
                 })
+                left[0].focus()
+            }
+            if(document.querySelector(".mini-input")!==null){
                 validBackground(false);
                 document.getElementById("factory-back-btn").addEventListener("click", ()=>{
                     window.removeEventListener("keydown", resetDate);
