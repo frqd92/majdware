@@ -13,6 +13,9 @@ module.exports = {
         assetModuleFilename: "files/[name]-[contenthash][ext]",
         clean: true
     },
+    resolve: {
+        extensions: ['.js', '.json'],
+      },
     module: {
         rules: [
             {

@@ -8,7 +8,9 @@ import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
 import {currentFact, currentFactory} from "/src/arrayTracker"
 import { readCompanyData } from "..";
-import { snapshotArr } from "../arrayTracker";
+import exportFunc from "../export";
+
+
 
 
 
@@ -33,6 +35,7 @@ function generateMainFactory(e){
     const addMovimentoBtn = elementCreator("button", ["id", "add-movimento-btn"], "+", main);
     const tableDiv = elementCreator("div", ["class", "table-div"], false, main);
     generateTable(tableDiv)
+    exportBtn.addEventListener("click", exportFunc);
 }
 
 
