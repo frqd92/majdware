@@ -56,7 +56,7 @@ function checkForZero(){
                     }
                 }
                 if(i===2 || i===5){
-                    if(elem.value.length===1){
+                    if(elem.value.length>1){
                         elem.value="";
                     }
                 }
@@ -87,14 +87,13 @@ function dateInputLogic(){
                 elem.value = elem.value.substring(0, elem.length-1);
             }
 
-            if(elem.value.length===2){ //put here logic to search movimentos
+            if(elem.value.length===2){ 
                 if(index!==5){
                     elem.nextSibling.nextSibling.focus();
                 }
                 if(isInputValid()){
                     const validDates = validBackground(true);
                     filterTable(validDates);
-
                 }
                 else{
                     validBackground(false);
@@ -122,11 +121,8 @@ function dateInputLogic(){
         }
         else{
             defilterTable()
-            allInputElem.forEach(elem=>{
-                elem.classList.remove("valid-input-bg");
-            })
+            allInputElem.forEach(elem=>{elem.classList.remove("valid-input-bg");})
         }
-
     }
 
 
@@ -159,7 +155,6 @@ function dateInputLogic(){
     window.addEventListener("keydown", resetDate);
 
     function resetDate(e){
-        
         if(e.key==="Delete"){
             const left = document.querySelectorAll(".mini-input-left");
             const right = document.querySelectorAll(".mini-input-right");
