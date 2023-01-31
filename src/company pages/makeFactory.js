@@ -9,7 +9,8 @@ import { generateTable } from "./tableLogic";
 import {currentFact, currentFactory} from "/src/arrayTracker"
 import { readCompanyData } from "..";
 import exportFunc from "../export";
-
+import { movAdder } from "./makeRow";
+import { generate } from "../export";
 
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
@@ -32,7 +33,18 @@ function generateMainFactory(e){
     const addMovimentoBtn = elementCreator("button", ["id", "add-movimento-btn"], "+", main);
     const tableDiv = elementCreator("div", ["class", "table-div"], false, main);
     generateTable(tableDiv)
-    exportBtn.addEventListener("click", exportFunc);
+    // exportBtn.addEventListener("click", exportFunc);
+    exportBtn.addEventListener("click", generate);
+    addMovimentoBtn.addEventListener("click", ()=>{
+        if(document.querySelector(".adder-div")===null){
+            movAdder()
+        }
+        else{
+            document.querySelector(".adder-div").style.display="flex";
+            document.querySelector(".bg-div-adder").style.display="block";
+        }
+
+    })
 }
 
 

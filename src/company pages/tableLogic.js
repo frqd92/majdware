@@ -1,5 +1,5 @@
 import elementCreator from "../utilities/createDomElement";
-import { movAdder } from "./makeRow";
+
 
 
 import '/src/styles/table.css'
@@ -22,7 +22,6 @@ export function generateTable(div){
             case 5: elementCreator("th", ["class", "table-th"], "Saldo", tableHeader); break;
         }
     };
-    document.getElementById("add-movimento-btn").addEventListener("click", movAdder);
 }        
 
 

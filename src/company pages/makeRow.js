@@ -96,14 +96,7 @@ export const rowFact = ()=>{
             else if(desigInput.value.length<15){
                 desigInput.style.fontSize = "1.2rem";
             }
-            // if(desigInput.value.length===1 && e.inputType!=="deleteContentBackward"){
-            //     if(e.data.toLowerCase()==="t"){
-            //         desigInput.value="Transporte ";
-            //     }
-            //     else if(e.data.toLowerCase()==="i"){
-            //         desigInput.value="Invoice ";
-            //     }
-            // }
+
         })
         //debit/credit
         emptyZero(creditInput);
@@ -152,17 +145,18 @@ export const rowFact = ()=>{
             const lastSaldo = [...document.querySelectorAll(".td-saldo")].pop();
             let lastValue=0;
             if(lastSaldo!==undefined){
-                lastValue = lastSaldo.textContent
+                lastValue = lastSaldo.textContent;
+                lastValue = rmvFor(lastValue);
             }
             for(let i=0;i<allSaldo.length;i++){
                 if(i===0){
-                    let value =rmvFor(lastValue) + rmvFor(allDebito[0].value) - rmvFor(allCredito[0].value);
+
+                    let value =lastValue + rmvFor(allDebito[0].value) - rmvFor(allCredito[0].value);
                     allSaldo[0].value = numeral(value).format("0,0")
                 }
                 else{
                     let value = allSaldo[i].value = rmvFor(allSaldo[i-1].value) + rmvFor(allDebito[i].value) - rmvFor(allCredito[i].value);
                     allSaldo[i].value = numeral(value).format("0,0")
-
                 }
             }
         }
@@ -172,21 +166,6 @@ export const rowFact = ()=>{
 
         }
 
-/*
-    for(let i=0;i<allSaldo.length;i++){
-        if(i===0){
-            allSaldo[0].value =Number(lastValue) + Number(allDebito[0].value) - Number(allCredito[0].value);
-        }
-        else{
-            allSaldo[i].value = Number(allSaldo[i-1].value) + Number(allDebito[i].value) - Number(allCredito[i].value);
-        }
-    }
-*/
-
-
-
-
-
     return Object.assign({}, {row});
     
 }
@@ -194,11 +173,15 @@ export const rowFact = ()=>{
 
 
 export function movAdder(){
+    const bgDiv = elementCreator("div", ["class", "bg-div-adder"], false, document.body);
     const adderDiv = elementCreator("div", ["class", "adder-div"], false, document.body);
     const adderHead = elementCreator("div", ["class", "adder-upper"], false, adderDiv);
     makeDraY(adderDiv, adderHead);
     const closeBtn = elementCreator("p", ["class", "adder-head-close"], "X", adderHead);
-    closeBtn.addEventListener("click", ()=>{adderDiv.remove()})
+    closeBtn.addEventListener("click", ()=>{
+        adderDiv.style.display="none";
+        bgDiv.style.display="none";
+    })
     const adderHeader = elementCreator("div", ["class", "adder-header"], false, adderDiv);
     for(let i=0;i<5;i++){
         switch(i){
@@ -239,6 +222,7 @@ export function movAdder(){
         const factory = document.querySelector(".factory-header-title").innerText;
         renderToTable(factory);
         adderDiv.remove();
+        bgDiv.remove()
     })
 }
 
