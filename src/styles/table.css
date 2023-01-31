@@ -58,12 +58,17 @@ padding: 5px 0px;
 }
 
 .table-row:nth-child(even){
+    background: rgba(232, 229, 229, 0.169);
+}
+.table-row:nth-child(odd){
+    background: rgba(231, 231, 233, 0.275);
+}
+/* .table-row:nth-child(even){
     background: rgba(20, 19, 19, 0.169);
 }
 .table-row:nth-child(odd){
     background: rgba(63, 63, 103, 0.275);
-}
-
+} */
 /* width */
 .table-div::-webkit-scrollbar {
     width: 10px;
