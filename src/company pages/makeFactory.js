@@ -11,9 +11,6 @@ import { readCompanyData } from "..";
 import exportFunc from "../export";
 
 
-
-
-
 export function makeFactoryPage(e){
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 

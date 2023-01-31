@@ -30,6 +30,7 @@
     "firebase": "^9.16.0",
     "install": "^0.13.0",
     "npm": "^9.4.0",
+    "numeral": "^2.0.6",
     "sheetjs-style": "^0.15.8",
     "xlsx": "^0.18.5"
   }

@@ -150,13 +150,7 @@
     transition: font-size 0.1s linear;
 
 }
-.adder-desig-div input:nth-child(1){
-    width: 25%;
-    border-right: 1px solid rgba(0, 0, 0, 0.016);
-}
-.adder-desig-div input:nth-child(2){
-    width: 75%;
-}
+
 .adder-desig-input{
 
     outline: none;
@@ -167,8 +161,6 @@
 .adder-desig-input-num{
     border: none;
     outline: none;
-
-
 
 }
 .adder-header-btn-div{

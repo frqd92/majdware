@@ -1,8 +1,7 @@
 import elementCreator from "../utilities/createDomElement";
 import { movAdder } from "./makeRow";
-import {readCompanyData} from "/src/index"
-import { mainArray, currentFactory } from "../arrayTracker";
-import { feedTables } from "../arrayTracker";
+
+
 import '/src/styles/table.css'
 export function generateTable(div){
     const table = elementCreator("table", ["id", "main-table"], false, div);

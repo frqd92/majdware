@@ -10,7 +10,6 @@ export default function exportFunc(){
     const table = exportTable(visibleRows(),[fromDate, toDate]);
 
 
-
     var workbook = XLSX.utils.table_to_book(table,{ dateNF: 'dd-mm-yyyy;@', cellDates: true, raw: true});
 
     var sheet = workbook.Sheets[workbook.SheetNames[0]];

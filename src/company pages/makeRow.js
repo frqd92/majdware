@@ -1,11 +1,10 @@
 import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
-import { mainArray, feedTables, tempArray} from "../arrayTracker";
+import {feedTables} from "../arrayTracker";
 import {writeMovements} from "/src/index.js";
 import { snapshotArr } from "../arrayTracker";
-import filterByFact from "../utilities/filterName";
-import { readCompanyData } from "..";
+import numeral from 'numeral';
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
     let  tempArray = [];
@@ -16,9 +15,8 @@ function renderToTable(fact){
         const rowDates = elem.querySelectorAll(".adder-date-input");
         obj.date = rowDates[0].value + "/" + rowDates[1].value + "/" + rowDates[2].value;
 
-        const faturaNum = elem.querySelector(".adder-desig-input-num").value;
         const desig = elem.querySelector(".adder-desig-input").value;
-        obj.des = `${faturaNum} ${desig}`;
+        obj.des = `${desig}`;
 
         obj.credito = elem.querySelector(".adder-credit-input").value;
         obj.debito = elem.querySelector(".adder-debit-input").value;
@@ -50,10 +48,8 @@ export const rowFact = ()=>{
     dd.placeholder="dd";
     mm.placeholder="mm";
     yy.placeholder="yy";
-    const desigDiv = elementCreator("div", ["class", "adder-desig-div", "adder-td"], false, row);
-    const desigNum = elementCreator("input", ["class", "adder-desig-input-num"], false, desigDiv);
-    desigNum.placeholder="nº";
-    const desigInput = elementCreator("input", ["class", "adder-desig-input"], false, desigDiv);
+
+    const desigInput = elementCreator("input", ["class", "adder-desig-input"], false, row);
     const creditInput = elementCreator("input", ["class", "adder-credit-input", "adder-td"], false, row);
     const debitInput = elementCreator("input", ["class", "adder-debit-input", "adder-td"], false, row);
     const saldoInput = elementCreator("input", ["class", "adder-saldo-input", "adder-td"], false, row);
@@ -84,8 +80,8 @@ export const rowFact = ()=>{
         yy.addEventListener("input",(e)=>{
             onlyNumbers(yy, e);
             if(yy.value.length>1){
-                desigNum.focus();
-                desigNum.select();
+                desigInput.focus();
+                desigInput.select();
             }
         });
 
@@ -100,21 +96,26 @@ export const rowFact = ()=>{
             else if(desigInput.value.length<15){
                 desigInput.style.fontSize = "1.2rem";
             }
-            if(desigInput.value.length===1 && e.inputType!=="deleteContentBackward"){
-                if(e.data.toLowerCase()==="t"){
-                    desigInput.value="Transporte ";
-                }
-                else if(e.data.toLowerCase()==="i"){
-                    desigInput.value="Invoice ";
-                }
-            }
+            // if(desigInput.value.length===1 && e.inputType!=="deleteContentBackward"){
+            //     if(e.data.toLowerCase()==="t"){
+            //         desigInput.value="Transporte ";
+            //     }
+            //     else if(e.data.toLowerCase()==="i"){
+            //         desigInput.value="Invoice ";
+            //     }
+            // }
         })
         //debit/credit
         emptyZero(creditInput);
         emptyZero(debitInput);
         debitInput.addEventListener("focusout", calculateSaldo);
         creditInput.addEventListener("focusout", calculateSaldo);
-
+        creditInput.addEventListener("input",()=> {
+            creditInput.value= numeral(creditInput.value).format('0,0');
+        });
+        debitInput.addEventListener("input",()=> {
+            debitInput.value= numeral(debitInput.value).format('0,0');
+        });
         //saldo
         saldoInput.addEventListener('paste', (e) => e.preventDefault());
         saldoInput.addEventListener("input", ()=>{saldoInput.value="";})
@@ -123,6 +124,7 @@ export const rowFact = ()=>{
 
 
         //functions
+
         function onlyNumbers(input, e){
             if(isNaN(e.data)){input.value = input.value.split("").slice(0,-1).join("");}
         }
@@ -143,7 +145,6 @@ export const rowFact = ()=>{
             });
         }
 
-
         function calculateSaldo(){
             const allSaldo = document.querySelectorAll(".adder-saldo-input");
             const allCredito = document.querySelectorAll(".adder-credit-input");
@@ -151,19 +152,36 @@ export const rowFact = ()=>{
             const lastSaldo = [...document.querySelectorAll(".td-saldo")].pop();
             let lastValue=0;
             if(lastSaldo!==undefined){
-                lastValue = lastSaldo.textContent;
+                lastValue = lastSaldo.textContent
             }
-    
             for(let i=0;i<allSaldo.length;i++){
                 if(i===0){
-                    allSaldo[0].value =Number(lastValue) + Number(allDebito[0].value) - Number(allCredito[0].value);
+                    let value =rmvFor(lastValue) + rmvFor(allDebito[0].value) - rmvFor(allCredito[0].value);
+                    allSaldo[0].value = numeral(value).format("0,0")
                 }
                 else{
-                    allSaldo[i].value = Number(allSaldo[i-1].value) + Number(allDebito[i].value) - Number(allCredito[i].value);
+                    let value = allSaldo[i].value = rmvFor(allSaldo[i-1].value) + rmvFor(allDebito[i].value) - rmvFor(allCredito[i].value);
+                    allSaldo[i].value = numeral(value).format("0,0")
+
                 }
             }
         }
 
+        function rmvFor(val){
+            return Number(val.replaceAll(",", ""));
+
+        }
+
+/*
+    for(let i=0;i<allSaldo.length;i++){
+        if(i===0){
+            allSaldo[0].value =Number(lastValue) + Number(allDebito[0].value) - Number(allCredito[0].value);
+        }
+        else{
+            allSaldo[i].value = Number(allSaldo[i-1].value) + Number(allDebito[i].value) - Number(allCredito[i].value);
+        }
+    }
+*/
 
 
 
