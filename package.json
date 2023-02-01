@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/frqd92/majdware/issues"
   },
-  "homepage": "https://github.com/frqd92/majdware#readme",
+  "homepage": "https://majdware.com",
   "devDependencies": {
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
