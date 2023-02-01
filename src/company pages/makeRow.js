@@ -150,7 +150,6 @@ export const rowFact = ()=>{
             }
             for(let i=0;i<allSaldo.length;i++){
                 if(i===0){
-
                     let value =lastValue + rmvFor(allDebito[0].value) - rmvFor(allCredito[0].value);
                     allSaldo[0].value = numeral(value).format("0,0")
                 }

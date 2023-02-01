@@ -2,7 +2,8 @@ import { snapshotArr, currentFactory } from "./arrayTracker";
 import elementCreator from "./utilities/createDomElement";
 import * as XLSX from 'sheetjs-style';
 import "/src/styles/table.css"
-
+import rmvFor from "./utilities/formatNum";
+import numeral from "numeral";
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 
@@ -11,7 +12,6 @@ export function generate() {
     const toDate = visibleRows()[visibleRows().length-1].date;
     const table = exportTable(visibleRows());
     const info = infoTable([fromDate, toDate])
-    console.log(info)
     document.body.appendChild(info);
     document.body.appendChild(table);
     const doc = new jsPDF()
@@ -31,24 +31,74 @@ export function generate() {
             halign:"center"
         },
         columnStyles: {
-            1 : {halign: "justify"}
-        }
-        
+            1 : {halign: "center"}
+        },
     })
 
-    // autoTable(doc, {
-    //     head: [['Name', 'Email', 'Country']],
-    //     body: [
-    //       ['David', 'david@example.com', 'Sweden'],
-    //       ['Castille', 'castille@example.com', 'Spain'],
-    //       // ...
-    //     ],
-    //   })
-      
-      doc.save('table.pdf');
+      doc.save(`${currentFactory}-${fromDate}-${toDate}.pdf`);
       table.remove();
       info.remove()
   }
+
+
+
+function exportTable(rows){
+    const table = document.createElement("table");
+    table.id = "export-table";
+
+    const thead = elementCreator("thead", false, false, table)
+    const tableHeader = elementCreator("tr", false, false, thead);
+    for(let i=0;i<5;i++){
+        switch(i){
+            case 0: elementCreator("th", false, "Data",tableHeader); break;
+            case 1: elementCreator("th", false, "Designação",tableHeader); break;
+            case 2: elementCreator("th", false, "Crédito",tableHeader); break;
+            case 3: elementCreator("th", false, "Débito",tableHeader); break;
+            case 4: elementCreator("th", false, "Saldo €",tableHeader); break;
+        }
+    };
+    const tbody = elementCreator("tbody", false, false, table);
+    for(let i=0;i<rows.length;i++){
+        const tr = elementCreator("tr", false, false, tbody);
+        const date = formatDate(rows[i].date);
+        elementCreator("td", false,date,tr)
+        elementCreator("td", false,`${rows[i].des}` ,tr)
+        elementCreator("td", false,`${rows[i].credito}` ,tr)
+        elementCreator("td", false,`${rows[i].debito}` ,tr)
+        elementCreator("td", false,`${rows[i].saldo}` ,tr)
+    }
+
+
+    const tfoot = elementCreator("tfoot", false, false , table );
+    const tfootRow = elementCreator("tr", false ,false, tfoot);
+    const scope = elementCreator("th", false, "Total", tfootRow);
+    scope.setAttribute("scope", "row");
+    const [totalCredit, totalDebit, totalSaldo] = calculateTotals(rows);
+
+    elementCreator("th", false, "", tfootRow);
+    elementCreator("th", false, `${totalCredit}€`, tfootRow);
+    elementCreator("th", false, `${totalDebit}€`, tfootRow);
+    elementCreator("th", false, `${totalSaldo}€`, tfootRow);
+
+    return table;
+}
+
+
+
+function calculateTotals(rows){
+    let totalCredit=0, totalDebit=0;
+    rows.forEach(elem=>{
+        totalCredit+= rmvFor(elem.credito);
+        totalDebit+= rmvFor(elem.debito)
+    })
+    let totalSaldo = rmvFor(rows[rows.length-1].saldo);
+
+    return [numeral(totalCredit).format('0,0'), numeral(totalDebit).format('0,0'), numeral(totalSaldo).format('0,0')];
+}
+
+
+
+
 
 
 function infoTable(dateFilter){
@@ -61,42 +111,6 @@ function infoTable(dateFilter){
     elementCreator("th", false, `${dateFilter[0]} > ${dateFilter[1]}`, tr);
     return table
 }
-
-function exportTable(rows){
-    const table = document.createElement("table");
-    table.id = "export-table";
-    // const infoRow = elementCreator("tr", false, false, table);
-    // elementCreator("th", false, `Período: ${dateFilter[0]} > ${dateFilter[1]}`, infoRow)
-    // elementCreator("th", false, currentFactory, infoRow)
-    const thead = elementCreator("thead", false, false, table)
-    const tableHeader = elementCreator("tr", false, false, thead);
-    for(let i=0;i<5;i++){
-        switch(i){
-            case 0: elementCreator("th", false, "Data",tableHeader); break;
-            case 1: elementCreator("th", false, "Designação",tableHeader); break;
-            case 2: elementCreator("th", false, "Crédito",tableHeader); break;
-            case 3: elementCreator("th", false, "Débito",tableHeader); break;
-            case 4: elementCreator("th", false, "Saldo €",tableHeader); break;
-        }
-    };
-    const tbody = elementCreator("tbody", false, false, table)
-    for(let i=0;i<rows.length;i++){
-        const tr = elementCreator("tr", false, false, tbody);
-        const date = formatDate(rows[i].date);
-        elementCreator("td", false,date,tr)
-        elementCreator("td", false,`${rows[i].des}` ,tr)
-        elementCreator("td", false,`${rows[i].credito}` ,tr)
-        elementCreator("td", false,`${rows[i].debito}` ,tr)
-        elementCreator("td", false,`${rows[i].saldo}` ,tr)
-    }
-    return table;
-}
-
-
-
-
-
-
 
 
 
