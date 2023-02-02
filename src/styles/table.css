@@ -93,3 +93,110 @@ padding: 5px 0px;
     position: fixed;
     display: none;
   }
+
+
+  .export-modal{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.397);
+    border-radius: 5px;
+    padding: 20px;
+
+    backdrop-filter: blur(10px);
+  }
+  .export-modal-close{
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    border: none;
+    color: rgba(0, 0, 0, 0.764);
+    font-size: 3rem;
+    background: none;
+    transition: color, transform linear 0.1s;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    font-weight: 900;
+    text-shadow: 0px 1px 1px rgb(246, 237, 237)
+  }
+  .export-modal-close:hover{
+    transform: scale(1.15);
+    color: rgba(92, 2, 2, 0.825);
+  }
+  .export-modal-close:active{
+    transform: scale(1);
+    color: rgba(0, 0, 0, 0.555);
+
+  }
+  .export-modal-fact-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.434);
+    width: 70%;
+    padding-bottom: 5%;
+  }
+
+  .export-modal-text{
+    font-family: raleway;
+    white-space: nowrap;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+    user-select: none;
+  }
+
+
+  .export-modal-fact-input{
+    padding: 2px 7px;
+    width: 300px;
+    font-size: 1.1rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    letter-spacing: 0.04rem;
+    font-family: cairo;
+    text-align: center;
+
+  }
+  .export-modal-type-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding-top: 5%;
+
+  }
+  .modal-btn-div{
+    display: flex;
+    width: 300px;
+    align-items: center;
+    justify-content: space-evenly;
+
+    border-radius: 5px;
+  }
+  .export-modal-pdf, .export-modal-exl{
+    width: 40px;
+    -webkit-user-drag: none;
+    cursor: pointer;
+    transition: 0.1s transform linear;
+    user-select: none;
+
+  }
+  .export-modal-pdf:hover, .export-modal-exl:hover{
+    transform: scale(1.2);
+  }
+  .export-modal-pdf:active, .export-modal-exl:active{
+    transform: scale(1);
+  }
