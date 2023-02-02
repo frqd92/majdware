@@ -8,7 +8,6 @@ import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
 import {currentFact, currentFactory} from "/src/arrayTracker"
 import { readCompanyData } from "..";
-import exportFunc from "../export";
 import { movAdder } from "./makeRow";
 import { exportBtnEvents } from "../export";
 

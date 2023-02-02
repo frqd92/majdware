@@ -12,7 +12,10 @@ export function feedTables(arr){
         const objKeyArr = ["","", elem.date, elem.des, elem.credito, elem.debito, elem.saldo];
         for(let i=1;i<7;i++){
             const td = elementCreator("td", ["class", "table-td", `${classListArr[i]}`], `${objKeyArr[i]}`, tableRow);
-            if(i!==2 || i!==6) td.addEventListener("dblclick", editCellFunc);
+
+            if(i===2 || i===3 || i===4 || i===5){
+                td.addEventListener("dblclick", editCellFunc);
+            }
 
         }
     })
