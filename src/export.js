@@ -152,10 +152,13 @@ export default function generateExcel(e, factName){
     const toDate = visibleRows()[visibleRows().length-1].date;
     const table = exportTable(visibleRows(),[fromDate, toDate], factName);
     let infoHeader = infoTable([fromDate,toDate], factName);
-
+    const emptyRow = `<tr></tr>`
     infoHeader = infoHeader.outerHTML.replace(`<table id="export-info-table">`, "").replace(`</table>`, "");
-    table.innerHTML += infoHeader;
-    console.log(table)
+    
+    table.querySelector("thead").insertAdjacentHTML('beforebegin', infoHeader);
+    table.querySelector("thead").insertAdjacentHTML('beforebegin', emptyRow);
+    table.querySelector("thead").insertAdjacentHTML('beforebegin', emptyRow);
+    table.querySelector("tfoot").insertAdjacentHTML('beforebegin', emptyRow);
     
     var workbook = XLSX.utils.table_to_book(table,{ dateNF: 'dd-mm-yyyy;@', cellDates: true, raw: true});
 
