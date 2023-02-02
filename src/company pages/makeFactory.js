@@ -6,12 +6,15 @@ import '/src/styles/movimentos.css';
 import { clearShit } from "../searchbar";
 import filterDate from "../utilities/filterDateInput";
 import { generateTable } from "./tableLogic";
-import {currentFact, currentFactory} from "/src/arrayTracker"
+import {currentFact, currentFactory, updateSnapshot} from "/src/arrayTracker"
 import { readCompanyData } from "..";
 import { movAdder } from "./makeRow";
 import { exportBtnEvents } from "../export";
 
 export function makeFactoryPage(e){
+    if(document.querySelector(".table-row")===null){
+        updateSnapshot([]);
+    }
     document.querySelector(".welcome-text").style.display = "none"; 
     document.querySelector(".company-div").style.display = "none"; 
     document.body.classList.add("body-factory");

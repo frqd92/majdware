@@ -23,12 +23,18 @@ function renderToTable(fact){
 
         tempArray.push(obj);
     })
+
+
     tempArray.forEach((elem)=>{
         snapshotArr.push(elem);
-    })
+    });
+
+
+    
     writeMovements(snapshotArr, fact);
     feedTables(tempArray, false);
     tempArray=[];
+    
 }
 
 

@@ -25,11 +25,13 @@ export function feedTables(arr){
 
 
 function updateNum(){
-    const numbers = document.querySelectorAll(".td-num");
+        const numbers = document.querySelectorAll(".td-num");
         for(let i=0;i<snapshotArr.length;i++){
-            numbers[i].innerHTML = i;
+            numbers[i].innerHTML =i;
             snapshotArr[i].num=i;
         }
+    
+
     
 
 }
