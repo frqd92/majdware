@@ -1,0 +1,11 @@
+
+.edit-input{
+
+    padding:5px 0px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    background: rgba(243, 242, 242, 0.558);
+    border-radius: 8px;
+}

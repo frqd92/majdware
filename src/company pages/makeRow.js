@@ -1,9 +1,8 @@
 import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
-import {feedTables} from "../arrayTracker";
 import {writeMovements} from "/src/index.js";
-import { snapshotArr } from "../arrayTracker";
+import { snapshotArr, feedTables } from "../arrayTracker";
 import numeral from 'numeral';
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");

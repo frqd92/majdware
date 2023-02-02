@@ -1,5 +1,5 @@
 import elementCreator from "./utilities/createDomElement";
-import { readCompanyData } from ".";
+import editCellFunc from "./company pages/editTable";
 export let currentFactory = "";
 export let snapshotArr = []; //main array for Firebase current factory
 export let mainSnapshotArr = [];
@@ -11,7 +11,9 @@ export function feedTables(arr){
         const classListArr = ["","td-num", "td-date", "td-desig", "td-credit", "td-debit", "td-saldo"];
         const objKeyArr = ["","", elem.date, elem.des, elem.credito, elem.debito, elem.saldo];
         for(let i=1;i<7;i++){
-            elementCreator("td", ["class", "table-td", `${classListArr[i]}`], `${objKeyArr[i]}`, tableRow);
+            const td = elementCreator("td", ["class", "table-td", `${classListArr[i]}`], `${objKeyArr[i]}`, tableRow);
+            if(i!==2 || i!==6) td.addEventListener("dblclick", editCellFunc);
+
         }
     })
     updateNum();
@@ -23,6 +25,7 @@ function updateNum(){
     const numbers = document.querySelectorAll(".td-num");
         for(let i=0;i<snapshotArr.length;i++){
             numbers[i].innerHTML = i;
+            snapshotArr[i].num=i;
         }
     
 
