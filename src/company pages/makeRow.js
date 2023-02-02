@@ -109,9 +109,11 @@ export const rowFact = ()=>{
         debitInput.addEventListener("focusout", calculateSaldo);
         creditInput.addEventListener("focusout", calculateSaldo);
         creditInput.addEventListener("input",()=> {
+            calculateSaldo()
             creditInput.value= numeral(creditInput.value).format('0,0');
         });
         debitInput.addEventListener("input",()=> {
+            calculateSaldo()
             debitInput.value= numeral(debitInput.value).format('0,0');
         });
         //saldo
@@ -119,7 +121,7 @@ export const rowFact = ()=>{
         saldoInput.addEventListener("input", ()=>{saldoInput.value="";})
         saldoInput.addEventListener("focus", calculateSaldo);
         saldoInput.addEventListener("focusout", calculateSaldo);
-
+        
 
         //functions
 
