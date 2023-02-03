@@ -48,12 +48,12 @@ export const rowFact = ()=>{
     dd.placeholder="dd";
     mm.placeholder="mm";
     yy.placeholder="yy";
-
+    dd.focus;
     const desigInput = elementCreator("input", ["class", "adder-desig-input"], false, row);
     const creditInput = elementCreator("input", ["class", "adder-credit-input", "adder-td"], false, row);
     const debitInput = elementCreator("input", ["class", "adder-debit-input", "adder-td"], false, row);
     const saldoInput = elementCreator("input", ["class", "adder-saldo-input", "adder-td"], false, row);
-   
+        
         //datelogic
         dd.addEventListener("input",(e)=>{
             if(dd.classList.contains("invalid-date")){dd.classList.remove("invalid-date")}
@@ -106,7 +106,7 @@ export const rowFact = ()=>{
         emptyZero(debitInput);
         debitInput.addEventListener("focusout", calculateSaldo);
         creditInput.addEventListener("focusout", calculateSaldo);
-        creditInput.addEventListener("input",()=> {
+        creditInput.addEventListener("input",(e)=> {
             calculateSaldo()
             creditInput.value= numeral(creditInput.value).format('0,0');
         });
@@ -121,10 +121,15 @@ export const rowFact = ()=>{
         saldoInput.addEventListener("focusout", calculateSaldo);
         
 
+        arrowTraverse(row)
+        deleteRow(row)
+
         //functions
 
         function onlyNumbers(input, e){
-            if(isNaN(e.data)){input.value = input.value.split("").slice(0,-1).join("");}
+            if(isNaN(e.data)){
+                input.value = input.value.split("").slice(0,-1).join("");
+            }
         }
         function addZero(input, e){
             input.addEventListener("focusout", ()=>{
@@ -143,13 +148,72 @@ export const rowFact = ()=>{
             });
         }
 
-
-
-
-
     return Object.assign({}, {row});
     
 }
+function deleteRow(row){
+    const inputs = row.querySelectorAll("input");
+
+    let arr=[];
+    inputs.forEach((elem,index)=>{
+        elem.addEventListener("keydown", (e)=>{
+            if(e.key==="Shift"){
+                arr.push("0");
+            }
+            if(e.key==="D" || e.key==="d"){
+                arr.push("0");
+            }
+            if(arr.length===2 && document.querySelectorAll(".adder-row").length>1){
+                row.remove();
+            }
+        })
+        elem.addEventListener("keyup", ()=>{
+            arr=[];
+            console.log(arr)
+        })
+
+    })
+
+
+
+}
+function arrowTraverse(row){
+    const inputs = row.querySelectorAll("input");
+
+    inputs.forEach((elem,index)=>{
+        elem.addEventListener("keydown", (e)=>{
+            if(e.key==="Enter"){
+                if(index!==2){
+                    elem.nextSibling.focus()
+                }
+                if(index===2){
+                    inputs[3].focus();
+                }
+                if(index===5){
+                    document.querySelector(".adder-header-row-div").appendChild(rowFact().row);
+                    const nextFocus = document.querySelectorAll(".adder-date-input");
+                    nextFocus[nextFocus.length-3].focus();
+                }
+
+            }
+        })
+    })
+
+
+
+    //const [mm,dd,yy, desig, cred, deb, sal] = row.querySelectorAll("input")
+
+
+    // const row = e.target.parentElement;
+    // if((e.key==="Enter" || e.key==="ArrowRight")){
+    //     e.target.nextSibling.focus();
+    // }
+    // if(e.key==="ArrowLeft"){
+    //     e.target.previousSibling.focus();
+    // }
+}
+
+
 
 export function calculateSaldo(){
     const allSaldo = document.querySelectorAll(".adder-saldo-input");

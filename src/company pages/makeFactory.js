@@ -10,7 +10,7 @@ import {currentFact, currentFactory, updateSnapshot} from "/src/arrayTracker"
 import { readCompanyData } from "..";
 import { movAdder } from "./makeRow";
 import { exportBtnEvents } from "../export";
-import { recalculateTable } from "/src/company pages/editTable";
+
 
 export function makeFactoryPage(e){
     if(document.querySelector(".table-row")===null){
@@ -40,6 +40,7 @@ function generateMainFactory(e){
     addMovimentoBtn.addEventListener("click", ()=>{
         if(document.querySelector(".adder-div")===null){
             movAdder()
+            document.querySelector(".adder-date-input").focus();
         }
         else{
             document.querySelector(".adder-div").style.display="flex";

@@ -164,15 +164,17 @@ function dateInputLogic(){
                     emptyRight=false;
                     elem.value="";
                 }
-                right[0].focus()
+                if(!emptyRight)right[0].focus()
             })
             if(emptyRight){
+                let allEmpty = true;
                 left.forEach(elem=>{
                     if(elem.value){
+                        allEmpty=false;
                         elem.value="";
                     }
                 })
-                left[0].focus()
+                if(!allEmpty)left[0].focus()
             }
             if(document.querySelector(".mini-input")!==null){
                 validBackground(false);
