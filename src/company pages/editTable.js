@@ -11,9 +11,14 @@ export default function editCellFunc(e){
         const parentRow = e.target.parentElement;
         const editIndex = parentRow.querySelector(".td-num").innerText;
         cell.innerText = "";
-        const editInput = elementCreator("input", ["class", "edit-input"], false, e.target);
-        if(!cell.classList.contains("td-desig")){
+        const inputDiv = elementCreator("div", ["class", "edit-input-div"], false, e.target)
+        const editInput = elementCreator("input", ["class", "edit-input"], false, inputDiv);
+        if(!cell.classList.contains("td-desig") && !cell.classList.contains("td-date")){
             numberInput(editInput);
+        }
+        if(cell.classList.contains("td-date")){
+            editInput.classList.add("edit-date-input")
+            dateInput(editInput);
         }
         editInput.value = origVal;
         editInput.select();
@@ -22,13 +27,13 @@ export default function editCellFunc(e){
         window.addEventListener("keydown", removeInput);
         function removeInput(e){
             if(e.key==="Escape"){
-                editInput.remove();
+                inputDiv.remove();
                 cell.innerText=origVal;
                 window.removeEventListener("click", removeInput);
             }
             if(e.key==="Enter"){
-                if(editInput.value===""){
-                    editInput.remove();
+                if(editInput.value===""){ //if field is empty
+                    inputDiv.remove();
                     cell.innerText=origVal;
                     window.removeEventListener("click", removeInput);
                 }
@@ -39,9 +44,8 @@ export default function editCellFunc(e){
                             editObj(editIndex,cell, origVal)
                         }
                     })
-
                     cell.innerText=origVal;
-                    editInput.remove();
+                    inputDiv.remove();
                     window.removeEventListener("click", removeInput);
                     recalculateTable(editIndex);
                 }
@@ -49,7 +53,34 @@ export default function editCellFunc(e){
             }
         }
     }
-    }
+}
+
+
+function dateInput(dateInput){
+    dateInput.addEventListener("input", (e)=>{
+        if(isNaN(e.data) || dateInput.value.length > 10){
+            dateInput.value = dateInput.value.split("").slice(0,-1).join("");
+        }
+        if(dateInput.value.length===2 ||dateInput.value.length===5 ){
+            dateInput.value+="/";
+        }
+        if(dateInput.value.length===10){
+            dateInput.value = dateInput.value.split("").filter((el, i)=>{
+                if(i!==6 && i!==7) return el
+            }).join("");
+        }
+        if(e.inputType === "deleteContentBackward"){
+            dateInput.value = "";
+        }
+        if(dateInput.value.length<8){
+            dateInput.classList.add("invalid-date-edit");
+        }
+        else{
+            dateInput.classList.remove("invalid-date-edit")
+        }
+    })
+}
+
 
 function recalculateTable(){
     clearIfFilter();

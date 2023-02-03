@@ -61,6 +61,7 @@ export const rowFact = ()=>{
    
         //datelogic
         dd.addEventListener("input",(e)=>{
+            if(dd.classList.contains("invalid-date")){dd.classList.remove("invalid-date")}
             addZero(dd);
             onlyNumbers(dd, e);
             if(dd.value > 31){
@@ -72,6 +73,7 @@ export const rowFact = ()=>{
             }
         })
         mm.addEventListener("input",(e)=>{
+            if(mm.classList.contains("invalid-date")){mm.classList.remove("invalid-date")}
             addZero(mm);
             onlyNumbers(mm, e);
             if(mm.value > 12){
@@ -83,6 +85,7 @@ export const rowFact = ()=>{
             }
         })
         yy.addEventListener("input",(e)=>{
+            if(yy.classList.contains("invalid-date")){yy.classList.remove("invalid-date")}
             onlyNumbers(yy, e);
             if(yy.value.length>1){
                 desigInput.focus();
@@ -225,11 +228,37 @@ export function movAdder(){
     
     const addToTableBtn = elementCreator("div", ["class", "add-to-table-btn"], "حفظ", btnDiv);
     addToTableBtn.addEventListener("click", ()=>{
-        const factory = document.querySelector(".factory-header-title").innerText;
-        renderToTable(factory);
-        adderDiv.remove();
-        bgDiv.remove()
+        if(validateRows()){
+            const factory = document.querySelector(".factory-header-title").innerText;
+            renderToTable(factory);
+            adderDiv.remove();
+            bgDiv.remove()
+        }
     })
 }
+function validateRows(){
+    const allRows = document.querySelectorAll(".adder-row");
+    let validDate = true;
+    let invalid = [];
+    allRows.forEach((elem, index)=>{
+        const allInputs = elem.querySelectorAll("input");
+        const dateInputs = elem.querySelectorAll(".adder-date-input");
+        for(let i=0;i<3;i++){
+            if(dateInputs[i].value.length==0){
+                validDate = false;
+                invalid.push([index,i])
+            }
+        }
+    })
 
+    for(let i=0;i<invalid.length;i++){
+        const [rowIndex, dateIndex] = invalid[i];
+        const date = allRows[rowIndex].querySelectorAll(".adder-date-input");
+
+        date[dateIndex].classList.add("invalid-date")
+
+    }
+    return validDate?true:false;
+
+}
 
