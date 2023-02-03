@@ -47,12 +47,30 @@ export default function editCellFunc(e){
                     cell.innerText=origVal;
                     inputDiv.remove();
                     window.removeEventListener("click", removeInput);
-                    recalculateTable(editIndex);
+
                 }
 
             }
         }
     }
+}
+
+function editObj(index,cell ,value){
+    if(cell.classList.contains("td-date")){
+        snapshotArr[index].date = value;
+    }
+    else if(cell.classList.contains("td-desig")){
+        snapshotArr[index].des = value;
+
+    }
+    else if(cell.classList.contains("td-credit")){
+        snapshotArr[index].credito = value;
+    }
+    else if(cell.classList.contains("td-debit")){
+        snapshotArr[index].debito = value;
+    }
+    recalculateTable();
+    writeMovements(snapshotArr, currentFactory);
 }
 
 
@@ -90,7 +108,6 @@ function recalculateTable(){
         let tdCredit = elem.querySelector(".td-credit");
         let tdDebit = elem.querySelector(".td-debit");
         let tdSaldo = elem.querySelector(".td-saldo");
-
         if(index===0){
             const val = rmvFor(tdDebit.innerText) - rmvFor(tdCredit.innerText);
             tdSaldo.innerText = numeral(val).format("0,0");
@@ -100,6 +117,7 @@ function recalculateTable(){
             const val = rmvFor(prevSaldo.innerText) + (rmvFor(tdDebit.innerText) - rmvFor(tdCredit.innerText))
             tdSaldo.innerText =  numeral(val).format("0,0");;
         }
+        snapshotArr[index].saldo = tdSaldo.innerText;
 
     })
     function rmvFor(val){
@@ -133,21 +151,3 @@ function numberInput(numInput){
     })
 }
 
-function editObj(index,cell ,value){
-
-    if(cell.classList.contains("td-date")){
-        snapshotArr[index].date = value;
-    }
-    else if(cell.classList.contains("td-desig")){
-        snapshotArr[index].des = value;
-
-    }
-    else if(cell.classList.contains("td-credit")){
-        snapshotArr[index].credito = value;
-    }
-    else if(cell.classList.contains("td-debit")){
-        snapshotArr[index].debito = value;
-
-    }
-    writeMovements(snapshotArr, currentFactory);
-}
