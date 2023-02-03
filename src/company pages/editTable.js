@@ -44,11 +44,11 @@ export default function editCellFunc(e){
                             editObj(editIndex,cell, origVal)
                         }
                     })
-                    recalculateTable()
                     writeMovements(snapshotArr, currentFactory);
                     cell.innerText=origVal;
                     inputDiv.remove();
                     window.removeEventListener("click", removeInput);
+                    recalculateTable()
                 }
 
             }
@@ -101,7 +101,7 @@ function dateInput(dateInput){
 }
 
 
-function recalculateTable(){
+export function recalculateTable(){
     clearIfFilter();
     const allRows = document.querySelectorAll(".table-row");
 
@@ -110,6 +110,7 @@ function recalculateTable(){
         let tdDebit = elem.querySelector(".td-debit");
         let tdSaldo = elem.querySelector(".td-saldo");
         if(index===0){
+
             const val = rmvFor(tdDebit.innerText) - rmvFor(tdCredit.innerText);
             tdSaldo.innerText = numeral(val).format("0,0");
         }
@@ -118,7 +119,6 @@ function recalculateTable(){
             const val = rmvFor(prevSaldo.innerText) + (rmvFor(tdDebit.innerText) - rmvFor(tdCredit.innerText))
             tdSaldo.innerText =  numeral(val).format("0,0");;
         }
-        snapshotArr[index].saldo = tdSaldo.innerText;
     })
 
 

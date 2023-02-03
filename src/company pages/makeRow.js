@@ -4,6 +4,7 @@ import arrowDown from '/src/Assets/arrow-down-other.png';
 import {writeMovements} from "/src/index.js";
 import { snapshotArr, feedTables } from "../arrayTracker";
 import numeral from 'numeral';
+import { recalculateTable } from "./editTable";
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
     let  tempArray = [];
@@ -16,26 +17,20 @@ function renderToTable(fact){
 
         const desig = elem.querySelector(".adder-desig-input").value;
         obj.des = `${desig}`;
-
         obj.credito = elem.querySelector(".adder-credit-input").value;
         obj.debito = elem.querySelector(".adder-debit-input").value;
-        obj.saldo = elem.querySelector(".adder-saldo-input").value;
 
         tempArray.push(obj);
     })
-
-
     tempArray.forEach((elem)=>{
         snapshotArr.push(elem);
     });
 
-
-    
     writeMovements(snapshotArr, fact);
     feedTables(tempArray, false);
     tempArray=[];
-    
-}
+    recalculateTable()
+}   
 
 
 
@@ -148,38 +143,40 @@ export const rowFact = ()=>{
             });
         }
 
-        function calculateSaldo(){
-            const allSaldo = document.querySelectorAll(".adder-saldo-input");
-            const allCredito = document.querySelectorAll(".adder-credit-input");
-            const allDebito = document.querySelectorAll(".adder-debit-input");
-            const lastSaldo = [...document.querySelectorAll(".td-saldo")].pop();
-            let lastValue=0;
-            if(lastSaldo!==undefined){
-                lastValue = lastSaldo.textContent;
-                lastValue = rmvFor(lastValue);
-            }
-            for(let i=0;i<allSaldo.length;i++){
-                if(i===0){
-                    let value =lastValue + rmvFor(allDebito[0].value) - rmvFor(allCredito[0].value);
-                    allSaldo[0].value = numeral(value).format("0,0")
-                }
-                else{
-                    let value = allSaldo[i].value = rmvFor(allSaldo[i-1].value) + rmvFor(allDebito[i].value) - rmvFor(allCredito[i].value);
-                    allSaldo[i].value = numeral(value).format("0,0")
-                }
-            }
-        }
 
-        function rmvFor(val){
-            return Number(val.replaceAll(",", ""));
 
-        }
+
 
     return Object.assign({}, {row});
     
 }
 
+export function calculateSaldo(){
+    const allSaldo = document.querySelectorAll(".adder-saldo-input");
+    const allCredito = document.querySelectorAll(".adder-credit-input");
+    const allDebito = document.querySelectorAll(".adder-debit-input");
+    const lastSaldo = [...document.querySelectorAll(".td-saldo")].pop();
+    let lastValue=0;
+    if(lastSaldo!==undefined){
+        lastValue = lastSaldo.textContent;
+        lastValue = rmvFor(lastValue);
+    }
+    for(let i=0;i<allSaldo.length;i++){
+        if(i===0){
+            let value =lastValue + rmvFor(allDebito[0].value) - rmvFor(allCredito[0].value);
+            allSaldo[0].value = numeral(value).format("0,0")
+        }
+        else{
+            let value = allSaldo[i].value = rmvFor(allSaldo[i-1].value) + rmvFor(allDebito[i].value) - rmvFor(allCredito[i].value);
+            allSaldo[i].value = numeral(value).format("0,0")
+        }
+    }
+}
 
+
+function rmvFor(val){
+    return Number(val.replaceAll(",", ""));
+}
 
 export function movAdder(){
     const bgDiv = elementCreator("div", ["class", "bg-div-adder"], false, document.body);

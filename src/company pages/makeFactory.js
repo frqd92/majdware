@@ -10,6 +10,7 @@ import {currentFact, currentFactory, updateSnapshot} from "/src/arrayTracker"
 import { readCompanyData } from "..";
 import { movAdder } from "./makeRow";
 import { exportBtnEvents } from "../export";
+import { recalculateTable } from "/src/company pages/editTable";
 
 export function makeFactoryPage(e){
     if(document.querySelector(".table-row")===null){
@@ -21,7 +22,6 @@ export function makeFactoryPage(e){
     generateHeader(e);
     generateMainFactory(e);
     readCompanyData(currentFactory);
-  
 }
 
 

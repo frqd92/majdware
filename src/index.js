@@ -33,6 +33,7 @@ const auth = getAuth(app);
 import {getDatabase, ref, set, child, update, remove, get} from "firebase/database";
 import { feedTables, updateSnapshot} from "./arrayTracker";
 import filterByFact from "./utilities/filterName";
+import { recalculateTable } from "./company pages/editTable";
 // var db = getDatabase();
 
 const database = getDatabase(app);
@@ -45,10 +46,10 @@ export function writeCompanies(value) {
 
 //write when user clicks company name
 export function writeMovements(value, fact) {
-  console.log(value, fact)
   const uid = auth.currentUser.uid;
   const db = getDatabase();
   set(ref(db, 'users/' + uid + "/movements/" + fact), value);
+
 }
 
 
@@ -81,6 +82,7 @@ export function readCompanyData(fact){
       const byFactory = filterByFact(snapshot.val(), fact);
       updateSnapshot(byFactory);
       feedTables(byFactory, true);
+      recalculateTable()
    
     } else {
       console.log("No data available");

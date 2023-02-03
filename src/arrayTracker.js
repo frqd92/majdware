@@ -1,5 +1,7 @@
 import elementCreator from "./utilities/createDomElement";
 import editCellFunc from "./company pages/editTable";
+import { calculateSaldo } from "./company pages/makeRow";
+import { recalculateTable } from "./company pages/editTable";
 export let currentFactory = "";
 export let snapshotArr = []; //main array for Firebase current factory
 export let mainSnapshotArr = [];
@@ -16,9 +18,10 @@ export function feedTables(arr){
             if(i===2 || i===3 || i===4 || i===5){
                 td.addEventListener("dblclick", editCellFunc);
             }
-
         }
+        
     })
+    calculateSaldo();
     updateNum();
 
 }
