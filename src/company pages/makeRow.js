@@ -169,7 +169,6 @@ function deleteRow(row){
         })
         elem.addEventListener("keyup", ()=>{
             arr=[];
-            console.log(arr)
         })
 
     })
