@@ -45,6 +45,7 @@ export function writeCompanies(value) {
 
 //write when user clicks company name
 export function writeMovements(value, fact) {
+  console.log(value, fact)
   const uid = auth.currentUser.uid;
   const db = getDatabase();
   set(ref(db, 'users/' + uid + "/movements/" + fact), value);

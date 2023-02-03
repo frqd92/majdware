@@ -44,10 +44,11 @@ export default function editCellFunc(e){
                             editObj(editIndex,cell, origVal)
                         }
                     })
+                    recalculateTable()
+                    writeMovements(snapshotArr, currentFactory);
                     cell.innerText=origVal;
                     inputDiv.remove();
                     window.removeEventListener("click", removeInput);
-
                 }
 
             }
@@ -56,6 +57,7 @@ export default function editCellFunc(e){
 }
 
 function editObj(index,cell ,value){
+
     if(cell.classList.contains("td-date")){
         snapshotArr[index].date = value;
     }
@@ -69,8 +71,7 @@ function editObj(index,cell ,value){
     else if(cell.classList.contains("td-debit")){
         snapshotArr[index].debito = value;
     }
-    recalculateTable();
-    writeMovements(snapshotArr, currentFactory);
+    
 }
 
 
@@ -118,8 +119,9 @@ function recalculateTable(){
             tdSaldo.innerText =  numeral(val).format("0,0");;
         }
         snapshotArr[index].saldo = tdSaldo.innerText;
-
     })
+
+
     function rmvFor(val){
         return Number(val.replaceAll(",", ""));
 
