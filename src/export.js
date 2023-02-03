@@ -107,7 +107,7 @@ function generatePdf(e, factName){
 
 
 function exportTable(rows, date, factName){
-
+    const visRows = visibleElements();
     const table = document.createElement("table");
     table.id = "export-table";
     const thead = elementCreator("thead", false, false, table)
@@ -122,23 +122,28 @@ function exportTable(rows, date, factName){
         }
     };
     const tbody = elementCreator("tbody", false, false, table);
-    for(let i=0;i<rows.length;i++){
+
+
+    visRows.forEach((elem)=>{
         const tr = elementCreator("tr", false, false, tbody);
-        const date = formatDate(rows[i].date);
+        const date = formatDate(elem.querySelector(".td-date").innerText);
+        const des = elem.querySelector(".td-desig").innerText;
+        const credito = elem.querySelector(".td-credit").innerText;
+        const debito = elem.querySelector(".td-debit").innerText;
+        const saldo = elem.querySelector(".td-saldo").innerText;
         elementCreator("td", false,date,tr)
-        elementCreator("td", false,`${rows[i].des}` ,tr)
-        elementCreator("td", false,`${rows[i].credito}` ,tr)
-        elementCreator("td", false,`${rows[i].debito}` ,tr)
-        elementCreator("td", false,`${rows[i].saldo}` ,tr)
-    }
+        elementCreator("td", false,des ,tr)
+        elementCreator("td", false,credito,tr)
+        elementCreator("td", false,debito ,tr)
+        elementCreator("td", false, saldo ,tr)
+    })
 
 
     const tfoot = elementCreator("tfoot", false, false , table );
     const tfootRow = elementCreator("tr", false ,false, tfoot);
     const scope = elementCreator("th", false, "Total", tfootRow);
     scope.setAttribute("scope", "row");
-    const [totalCredit, totalDebit, totalSaldo] = calculateTotals(rows);
-
+    const [totalCredit, totalDebit, totalSaldo] = calculateTotals(rows, visibleElements());
     elementCreator("th", false, "", tfootRow);
     elementCreator("th", false, `${totalCredit}€`, tfootRow);
     elementCreator("th", false, `${totalDebit}€`, tfootRow);
@@ -146,6 +151,21 @@ function exportTable(rows, date, factName){
 
     return table;
 }
+
+// for(let i=0;i<rows.length;i++){
+//     const tr = elementCreator("tr", false, false, tbody);
+//     const date = formatDate(rows[i].date);
+//     let saldo = 0;
+    
+//     elementCreator("td", false,date,tr)
+//     elementCreator("td", false,`${rows[i].des}` ,tr)
+//     elementCreator("td", false,`${rows[i].credito}` ,tr)
+//     elementCreator("td", false,`${rows[i].debito}` ,tr)
+//     elementCreator("td", false, saldo ,tr)
+// }
+
+
+
 
 export default function generateExcel(e, factName){
     const fromDate = visibleRows()[0].date;
@@ -190,22 +210,15 @@ function infoTable(dateFilter, factName){
 
 
 
+function calculateTotals(rows, visRow){
+    const saldo = visRow[visRow.length-1].querySelector(".td-saldo").innerText;
 
-
-
-
-
-
-
-
-function calculateTotals(rows){
     let totalCredit=0, totalDebit=0;
     rows.forEach(elem=>{
         totalCredit+= rmvFor(elem.credito);
         totalDebit+= rmvFor(elem.debito)
     })
-    let totalSaldo = rmvFor(rows[rows.length-1].saldo);
-
+    let totalSaldo = rmvFor(saldo);
     return [numeral(totalCredit).format('0,0'), numeral(totalDebit).format('0,0'), numeral(totalSaldo).format('0,0')];
 }
 
@@ -215,6 +228,16 @@ function visibleRows(){
         rows.forEach((elem, index)=>{
             if(!elem.classList.contains("hidden-row")){
                 arr.push(snapshotArr[index]);
+            }
+        })
+        return arr
+}
+function visibleElements(){
+    let arr = [];
+    const rows = document.querySelectorAll(".table-row");
+        rows.forEach((elem, index)=>{
+            if(!elem.classList.contains("hidden-row")){
+                arr.push(elem);
             }
         })
         return arr
