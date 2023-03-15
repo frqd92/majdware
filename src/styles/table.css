@@ -31,16 +31,17 @@
 .table-td{
 text-align: center;
 padding: 5px 0px;
+border: 1px solid black;
 
 }
 
 .table-row{
-    font-family: cairo;
-    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3rem;
     color: rgb(16, 17, 17);
-    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.267);
 
 }
+
 .hidden-row{
     display: none;
 }
@@ -57,12 +58,12 @@ padding: 5px 0px;
     
 }
 
-.table-row:nth-child(even){
+/* .table-row:nth-child(even){
     background: rgba(232, 229, 229, 0.169);
 }
 .table-row:nth-child(odd){
     background: rgba(231, 231, 233, 0.275);
-}
+} */
 /* .table-row:nth-child(even){
     background: rgba(20, 19, 19, 0.169);
 }

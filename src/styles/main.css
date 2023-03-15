@@ -10,7 +10,7 @@ body{
     align-items: center;
     gap: 30px;
     height: 100vh;
-    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-color: white;
 }
 
 /* ------------------------------------------------------------------------------- */
@@ -85,7 +85,8 @@ body{
     justify-content: space-evenly;
     padding: 5px 10px 15px 10px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    background-color: rgba(245, 245, 245, 0.373);
+    background-color: rgba(1, 1, 1, 0.169);
+    border: 1px solid black;
 }
 
 .title-text{
