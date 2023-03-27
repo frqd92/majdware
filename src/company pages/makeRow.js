@@ -2,7 +2,7 @@ import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
 import {writeMovements} from "/src/index.js";
-import { snapshotArr, feedTables } from "../arrayTracker";
+import { snapshotArr, feedTables, sortByDate } from "../arrayTracker";
 import numeral from 'numeral';
 import { recalculateTable } from "./editTable";
 function renderToTable(fact){
@@ -26,8 +26,8 @@ function renderToTable(fact){
         snapshotArr.push(elem);
     });
 
-    writeMovements(snapshotArr, fact);
-    feedTables(tempArray, false);
+    writeMovements(sortByDate(snapshotArr), fact);
+    feedTables(sortByDate(snapshotArr), false);
     tempArray=[];
     recalculateTable()
 }   

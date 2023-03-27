@@ -1,5 +1,5 @@
 import elementCreator from "/src/utilities/createDomElement";
-import { snapshotArr, currentFactory } from "../arrayTracker";
+import { snapshotArr, currentFactory, sortByDate, feedTables } from "../arrayTracker";
 import { writeMovements } from "..";
 import { defilterTable } from "../filterByDate";
 import '/src/styles/editTable.css'
@@ -39,15 +39,17 @@ export default function editCellFunc(e){
                 }
                 else{
                     origVal=editInput.value;
+        
                     snapshotArr.forEach((elem, index)=>{
                         if(index==editIndex){
                             editObj(editIndex,cell, origVal)
                         }
                     })
-                    writeMovements(snapshotArr, currentFactory);
+                    writeMovements(sortByDate(snapshotArr), currentFactory);
                     cell.innerText=origVal;
                     inputDiv.remove();
                     window.removeEventListener("click", removeInput);
+                    feedTables(snapshotArr)
                     recalculateTable()
                 }
 

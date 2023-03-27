@@ -79,6 +79,7 @@ export function readCompanyData(fact){
   const uid = auth.currentUser.uid;
   get(child(dbRef, 'users/' + uid + "/movements/" + fact)).then((snapshot) => {
     if (snapshot.exists()) {
+      console.log(fact);
       const byFactory = filterByFact(snapshot.val(), fact);
       updateSnapshot(byFactory);
       feedTables(byFactory, true);

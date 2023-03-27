@@ -31,22 +31,22 @@
     width: 100%;
     box-shadow: 0px 0px 0px white;
     min-height: 150px;
-    background-color: rgba(23, 144, 192, 0.458);
-    backdrop-filter: blur(20px);
+    background-color: rgba(248, 248, 248);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 100;
-    box-shadow: 0px -1px 2px rgba(171, 172, 198, 0.432);
     border-bottom: 1px solid rgba(0, 0, 0, 0.242);
+    box-shadow: 0px 0px 10px 1px black;
 }
 
 .adder-upper{
     position: absolute;
     width: 100%;
     cursor: grab;
-    height: 20px;
-    background-color: rgba(168, 168, 172, 0.191);
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0.337);
     display: flex;
     justify-content: end;
     align-items: center;
@@ -72,16 +72,15 @@
 .adder-header{
     display: flex;
     justify-content:space-evenly;
-    margin-top: 25px;
+    margin-top: 30px;
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 0px 1px 7px rgb(127, 126, 203, 0.8);
     user-select: none;
 }
 
 .adder-header-td{
-    color: white;
+    color: rgb(4, 3, 3);
     width: 100%;
     text-align: center;
     min-width: 105px;
@@ -91,6 +90,9 @@
 
 .adder-header-row-div{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .adder-row{
     display: grid;
@@ -102,7 +104,7 @@
 
 .adder-row input{
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     outline: none;
     border:  1px solid rgba(188, 188, 199, 0.802);
 
@@ -113,7 +115,7 @@
 }
 .adder-td, .adder-desig-input{
     min-width: 80px;
-    height: 30px;
+    height: 40px;
 
 }
 
@@ -208,16 +210,15 @@
     border: 1px solid rgba(255, 255, 255, 0.206);
     padding: 5px 20px;
     font-family: "amiri";
-    color: rgba(208, 222, 211, 0.881);
+    color: rgba(62, 58, 58, 0.948);
     letter-spacing: 0.05rem;
-    background-color: rgba(255, 255, 255, 0.195);
+    background-color: rgba(148, 148, 148, 0.995);
     user-select: none;
     cursor: pointer;
     border-radius: 20px 0px 0px 20px;
     border-right: none;
     font-size: 1rem;
     transition: font-size 0.1s ease-in-out;
-    text-shadow: 0px 1px 8px rgba(0, 0, 0, 0.626);
 }
 
 .add-to-table-btn:hover{
