@@ -7,6 +7,13 @@ export let currentFactory = "";
 export let snapshotArr = []; //main array for Firebase current factory
 export let mainSnapshotArr = [];
 
+export let desigArray = [];
+export function updateDesig(arr){
+    desigArray = arr;
+    console.log(desigArray);
+}
+
+
 export function feedTables(sortArr){
     const arr = sortByDate(sortArr)
     const table = document.getElementById("main-table");
@@ -61,13 +68,14 @@ function deleteRowFunc(row){
     function timerLogic(){
         numCell.addEventListener("mouseup", removeTimer);
         numCell.addEventListener("mouseleave", removeTimer);
-        let count = 0;
+        if(row.querySelector(".moving-delete")===null)elementCreator("div", ["class", "moving-delete"], false, numCell)
         const timer = setTimeout(()=>{
             removeRow();
             
-        }, 2000)
+        }, 1000)
 
         function removeTimer(){
+            if(row.querySelector(".moving-delete"))row.querySelector(".moving-delete").remove();
             clearTimeout(timer);
         }
     }
@@ -76,7 +84,7 @@ function deleteRowFunc(row){
         row.style.background="rgba(222, 101, 101, 0.432)";
         setTimeout(()=>{
             row.style.opacity = "0";
-        }, 1000)
+        }, 600)
         setTimeout(()=>{
             const index = Number(numCell.innerText.split("").shift());
             snapshotArr.splice(index, 1)
@@ -84,7 +92,7 @@ function deleteRowFunc(row){
             recalculateTable();
             updateNum();
             writeMovements(snapshotArr, currentFactory);
-        }, 1500)
+        }, 800)
 
     }
 

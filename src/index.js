@@ -31,7 +31,7 @@ const auth = getAuth(app);
 //This part is for crud
 //initialize firebase databse
 import {getDatabase, ref, set, child, update, remove, get} from "firebase/database";
-import { feedTables, updateSnapshot} from "./arrayTracker";
+import { updateDesig, feedTables, updateSnapshot} from "./arrayTracker";
 import filterByFact from "./utilities/filterName";
 import { recalculateTable } from "./company pages/editTable";
 // var db = getDatabase();
@@ -52,6 +52,13 @@ export function writeMovements(value, fact) {
 
 }
 
+//write desig
+export function writeDesig(value) {
+  const uid = auth.currentUser.uid;
+  const db = getDatabase();
+  set(ref(db, 'users/' + uid + "/desig/"), value);
+
+}
 
 
 
@@ -71,7 +78,19 @@ export function writeMovements(value, fact) {
   });
 }
 
-
+export function readDesig(){
+  const dbRef = ref(getDatabase(app));
+  const uid = auth.currentUser.uid;
+  get(child(dbRef, 'users/' + uid + "/desig/")).then((snapshot) => {
+    if (snapshot.exists()) {
+      updateDesig(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
 
 //when user clicks company name
 export function readCompanyData(fact){
@@ -79,7 +98,6 @@ export function readCompanyData(fact){
   const uid = auth.currentUser.uid;
   get(child(dbRef, 'users/' + uid + "/movements/" + fact)).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log(fact);
       const byFactory = filterByFact(snapshot.val(), fact);
       updateSnapshot(byFactory);
       feedTables(byFactory, true);

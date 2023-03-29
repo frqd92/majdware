@@ -1,10 +1,12 @@
 import elementCreator from "../utilities/createDomElement";
 import makeDraY from "../utilities/makeDraggableYaxis";
 import arrowDown from '/src/Assets/arrow-down-other.png';
-import {writeMovements} from "/src/index.js";
-import { snapshotArr, feedTables, sortByDate } from "../arrayTracker";
+import {writeMovements, writeDesig, readDesig} from "/src/index.js";
+import { snapshotArr, feedTables, sortByDate, desigArray } from "../arrayTracker";
 import numeral from 'numeral';
 import { recalculateTable } from "./editTable";
+
+
 function renderToTable(fact){
     const allRows = document.querySelectorAll(".adder-row");
     let  tempArray = [];
@@ -34,6 +36,145 @@ function renderToTable(fact){
 
 
 
+function desigDropFunc(div){
+    const arrowDiv = elementCreator("div", ["class", "desig-drop-arrow-div"], false, div);
+    const relativeDiv = elementCreator("div", ["class", "desig-rel"], false, arrowDiv)
+    const arrow = elementCreator("span", ["class",  "desig-drop-arrow"], ">", relativeDiv)
+    const menu = elementCreator("div", ["class", "desig-drop-menu"], false, div);
+    checkForDesig();
+    const menuAddBtn = elementCreator("div", ["class", "desig-add-desig"], "أضف رمزًا جديدًا", menu);
+    menuAddBtn.addEventListener("click", addNewDesig);
+    arrowDiv.addEventListener("click", desigArrowFunc);
+    function desigArrowFunc(){
+        if(!this.className.includes("desig-drop-clicked")){
+            this.classList.add("desig-drop-clicked");
+            arrow.classList.add("desig-drop-arrow-on");
+            menu.classList.add("desig-drop-menu-on");
+            window.addEventListener("click", closeDropClick)
+        }
+        else{
+            closingElements()
+        }
+    }
+
+    function checkForDesig(){
+        if(desigArray.length<1) return
+        console.log(desigArray);
+        desigArray.forEach(elem=>{
+            const newDesig = DesigFact(elem.code, elem.desigName);
+            menu.prepend(newDesig);
+        })
+        
+    }
+
+    function addNewDesig(){
+        if(div.querySelector(".add-new-desig")!==null) return
+        const inputDiv = elementCreator("div", ["class", "add-new-desig"], false, menu, true);
+        const codeInput = elementCreator("input", false, false, inputDiv); 
+        codeInput.focus();
+        const nameInput = elementCreator("input", false, false, inputDiv);
+        const addBtn = elementCreator("p", false, "+", inputDiv);
+        addBtn.addEventListener("click", addNewDesig);
+        window.addEventListener("keydown", cancelNewDesig);
+        codeInput.addEventListener("input", (e)=>{
+            if(isNaN(e.data)){
+                codeInput.value = codeInput.value.split("").slice(0,-1).join("");
+            }
+            if(codeInput.value.length>1){
+                const arr = codeInput.value.split("")
+                codeInput.value = arr[0];
+            }
+            if(codeInput.value.length>0){
+                nameInput.focus();
+            }
+        })
+        function cancelNewDesig(e){
+            if(e.key==="Escape"){
+                window.removeEventListener("keydown", cancelNewDesig);
+                div.querySelector(".add-new-desig").remove();
+            }
+        }
+
+        function addNewDesig(e){
+            checkIfCodeExists(codeInput.value)
+            if(codeInput.value.length<1){
+                codeInput.classList.add("invalid-input-desig");
+                return;
+            }
+            if(nameInput.value.length<1){
+                nameInput.classList.add("invalid-input-desig");
+                return;
+            }
+            if(checkIfCodeExists(codeInput.value)){
+                codeInput.classList.add("invalid-input-desig");
+                return;
+            }
+            else{
+                const newDesig = DesigFact(codeInput.value, nameInput.value)
+                menu.prepend(newDesig);
+                const obj = {
+                    code: codeInput.value,
+                    desigName: nameInput.value
+                }
+                desigArray.push(obj);
+                writeDesig(desigArray);
+                window.removeEventListener("keydown", cancelNewDesig);
+                div.querySelector(".add-new-desig").remove();
+                e.stopPropagation()
+            }
+        }
+
+    }
+
+    function checkIfCodeExists(val){
+        const allCodes = menu.querySelectorAll(".desig-drop-value")
+        let bool = false;
+        allCodes.forEach(code=>{
+            const num = Number(code.innerText.split(" ").shift());
+            if(num===Number(val)) return bool=true;
+        })
+        return bool;
+    }
+    function DesigFact(code, name){
+        const desigDropDiv = elementCreator("div", ["class", "desig-drop-row"], false);
+        elementCreator("div", ["class", "desig-drop-value"], code + " "+ name, desigDropDiv);
+        const deleteBtn = elementCreator("div", false, "X", desigDropDiv);
+        deleteBtn.addEventListener("click", deleteRow);
+
+        function deleteRow(e){
+            desigArray.forEach((elem, index)=>{
+                if(elem.code===code){
+                    console.log(desigArray);
+                    desigArray.splice(index, 1);
+                    console.log(desigArray);
+                    writeDesig(desigArray);
+                    desigDropDiv.remove()
+                    return;
+                }
+            })
+            e.stopPropagation()
+        }
+        return desigDropDiv;
+    }
+
+    function closeDropClick(e){
+        if(!e.target.closest(".desig-drop-arrow-div") && !e.target.closest(".desig-drop-menu") ){
+            closingElements()
+        }
+    }
+    function closingElements(){
+        menu.classList.remove("desig-drop-menu-on");
+        arrow.classList.remove("desig-drop-arrow-on");
+        arrowDiv.classList.remove("desig-drop-clicked");
+        window.removeEventListener("click", closeDropClick)
+    }
+
+
+}
+
+
+
+
 
 
 
@@ -49,11 +190,17 @@ export const rowFact = ()=>{
     mm.placeholder="mm";
     yy.placeholder="yy";
     dd.focus;
-    const desigInput = elementCreator("input", ["class", "adder-desig-input"], false, row);
+
+    const desigDiv = elementCreator("div", ["class", "adder-desig-div"], false, row);
+    const desigDrop = desigDropFunc(desigDiv);
+    const desigNum = elementCreator("input", ["class", "adder-desig-num"], false, desigDiv);
+    const desigInput = elementCreator("input", ["class", "adder-desig-input"], false, desigDiv);
+
+
+
     const creditInput = elementCreator("input", ["class", "adder-credit-input", "adder-td"], false, row);
     const debitInput = elementCreator("input", ["class", "adder-debit-input", "adder-td"], false, row);
     const saldoInput = elementCreator("input", ["class", "adder-saldo-input", "adder-td"], false, row);
-        
         //datelogic
         dd.addEventListener("input",(e)=>{
             if(dd.classList.contains("invalid-date")){dd.classList.remove("invalid-date")}
@@ -83,12 +230,23 @@ export const rowFact = ()=>{
             if(yy.classList.contains("invalid-date")){yy.classList.remove("invalid-date")}
             onlyNumbers(yy, e);
             if(yy.value.length>1){
-                desigInput.focus();
-                desigInput.select();
+                desigNum.focus();
+                desigNum.select();
             }
         });
 
         //desig
+        desigNum.addEventListener("input", e=>{
+            onlyNumbers(desigNum, e);
+            if(desigNum.value.length>1){
+                const arr = desigNum.value.split("")
+                desigNum.value = arr[0];
+            }
+            if(desigNum.value.length>0){
+                desigInput.focus();
+                desigInput.select();
+            }
+        })
         desigInput.addEventListener("input",(e)=>{
             if(desigInput.value.length>14){
                 desigInput.style.fontSize = "0.95rem";

@@ -1,6 +1,6 @@
 import elementCreator from "/src/utilities/createDomElement";
 import btn from '/src/Assets/back.png';
-import { getUserInfo } from '/src/index';
+import { getUserInfo,  readDesig } from '/src/index';
 import '/src/styles/companyPage.css';
 import '/src/styles/movimentos.css';
 import { clearShit } from "../searchbar";
@@ -22,6 +22,7 @@ export function makeFactoryPage(e){
     generateHeader(e);
     generateMainFactory(e);
     readCompanyData(currentFactory);
+    readDesig();
 }
 
 

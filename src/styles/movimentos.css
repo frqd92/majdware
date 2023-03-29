@@ -155,28 +155,30 @@
     border: 1px solid rgba(25, 0, 255, 0.423);
 }
 .adder-desig-div{
-
+    width: 100%;
     display: flex;
-    z-index: 10000;
-}
-.adder-desig-div input{
-    outline: none;
-    font-size: 1.2rem;
-    transition: font-size 0.1s linear;
 
+    position: relative;
 }
+
 
 .adder-desig-input{
-
+    font-size: 1.2rem;
+    transition: font-size 0.1s linear;
     outline: none;
-     border: none;
-
+    border: none;
+    width: 100%;
 }
 
 .adder-desig-input-num{
     border: none;
     outline: none;
-
+}
+.adder-desig-num{
+    width: 50px;
+    color: rgba(0, 0, 0, 0.341);
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.452);
+    padding-left: 8px;
 }
 .adder-header-btn-div{
     width: 100%;
@@ -184,7 +186,162 @@
     grid-template-columns: 1fr 1fr 1fr;
     justify-items:center;
 }
+.desig-drop-arrow-div{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    
+}
+.desig-rel{
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    font-size: 1.25em;
+    color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 16px;
+  
+  
+}
+.desig-drop-clicked{
+    background-color: rgba(0, 0, 0, 0.143);
 
+}
+.desig-drop-arrow{
+    transition: transform 0.1s linear;
+    transform: rotate(0deg);
+
+}
+.desig-rel:hover{
+    background-color: rgba(0, 0, 0, 0.143);
+}
+.desig-drop-arrow-on{
+    transform: rotate(90deg);
+
+}
+.desig-drop-menu{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid black;
+    display: none;
+    flex-direction: column;
+    z-index: 999;
+    border-radius: 0px 0px 5px 5px;
+    overflow: hidden;
+
+}
+.desig-add-desig{
+    width: 100%;
+    height: 40px;
+    border-top:1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-family: cairo;
+   background-color: rgba(0, 46, 86, 0.885);
+   color: white;
+
+}
+.desig-add-desig:hover{
+    background-color: rgba(0, 46, 86, 0.685);
+
+
+}
+.desig-drop-menu-on{
+    display: flex;
+}
+
+.add-new-desig{
+    display: grid;
+    grid-template-columns: 1.5fr 8fr 1fr;
+    width: inherit;
+    height: 35px;
+    border-top:1px solid rgba(0, 0, 0, 0.532);
+    background-color: rgba(11, 121, 148, 0.344);
+}
+.add-new-desig input:first-child{
+    min-width: 0;
+    outline: none;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.503);
+
+}
+.add-new-desig input{
+    min-width: 0;
+    outline: none;
+    border: none;
+    background: none;
+    color: rgba(0, 0, 0, 0.831);
+    border-right: 1px solid rgba(0, 0, 0, 0.503);
+   font-size: 1.1rem;
+
+}
+
+
+.add-new-desig p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    user-select: none;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.688);
+    color:white;
+}
+.invalid-input-desig{
+    background-color: rgba(255, 0, 0, 0.291) !important;
+
+}
+.desig-drop-row{
+    position: relative;
+    display: grid;
+    grid-template-columns: 94% 6%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+
+    user-select: none;
+    cursor: pointer;
+    border-top: 1px solid black;
+}
+.desig-drop-row div{
+    padding: 5px 0px;
+}
+.desig-drop-row div:first-child{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+   
+}
+
+.desig-drop-row div:nth-child(2){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+}
+
+
+.desig-drop-row div:first-child:hover{
+    background-color: rgba(83, 83, 209, 0.42);
+}
+.desig-drop-row div:nth-child(2):hover{
+    background-color: rgba(255, 0, 0, 0.432);
+}
+/* new arrow */
 .new-row-arrow{
     grid-column: 2 / 3;
     width: 50px;
@@ -267,3 +424,5 @@
 #add-movimento-btn:active{
     box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.297);
 }
+
+
