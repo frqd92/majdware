@@ -56,6 +56,10 @@ border: 1px solid black;
 .td-desig, .td-date, .td-num{
     font-size: 1.3rem;
 }
+.td-desig{
+  text-align: start;
+  padding-left: 10px;
+}
 .td-credit, .td-debit, .td-saldo{
     font-family:Arial, Helvetica, sans-serif;
     letter-spacing: 0.1rem;

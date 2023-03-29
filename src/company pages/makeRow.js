@@ -16,9 +16,9 @@ function renderToTable(fact){
         obj.num = 0;
         const rowDates = elem.querySelectorAll(".adder-date-input");
         obj.date = rowDates[0].value + "/" + rowDates[1].value + "/" + rowDates[2].value;
-
+        const desigNum = elem.querySelector(".adder-desig-num").value
         const desig = elem.querySelector(".adder-desig-input").value;
-        obj.des = `${desig}`;
+        obj.des = `${desigNum} ${desig}`;
         obj.credito = elem.querySelector(".adder-credit-input").value;
         obj.debito = elem.querySelector(".adder-debit-input").value;
 
@@ -27,7 +27,6 @@ function renderToTable(fact){
     tempArray.forEach((elem)=>{
         snapshotArr.push(elem);
     });
-
     writeMovements(sortByDate(snapshotArr), fact);
     feedTables(sortByDate(snapshotArr), false);
     tempArray=[];
@@ -47,10 +46,12 @@ function desigDropFunc(div){
     arrowDiv.addEventListener("click", desigArrowFunc);
     function desigArrowFunc(){
         if(!this.className.includes("desig-drop-clicked")){
+            checkIfOtherAreOpen();
             this.classList.add("desig-drop-clicked");
             arrow.classList.add("desig-drop-arrow-on");
             menu.classList.add("desig-drop-menu-on");
             window.addEventListener("click", closeDropClick)
+            checkForDesig()
         }
         else{
             closingElements()
@@ -59,7 +60,8 @@ function desigDropFunc(div){
 
     function checkForDesig(){
         if(desigArray.length<1) return
-        console.log(desigArray);
+        const allRows = menu.querySelectorAll(".desig-drop-row");
+        allRows.forEach(row=>row.remove());
         desigArray.forEach(elem=>{
             const newDesig = DesigFact(elem.code, elem.desigName);
             menu.prepend(newDesig);
@@ -137,16 +139,24 @@ function desigDropFunc(div){
     }
     function DesigFact(code, name){
         const desigDropDiv = elementCreator("div", ["class", "desig-drop-row"], false);
-        elementCreator("div", ["class", "desig-drop-value"], code + " "+ name, desigDropDiv);
+        const desigBtn = elementCreator("div", ["class", "desig-drop-value"], code + " "+ name, desigDropDiv);
         const deleteBtn = elementCreator("div", false, "X", desigDropDiv);
         deleteBtn.addEventListener("click", deleteRow);
 
+        desigBtn.addEventListener("click", chosenDesig);
+
+        function chosenDesig(){
+            const numInput = div.querySelector(".adder-desig-num");
+            const desigInput = div.querySelector(".adder-desig-input");
+            numInput.value = code;
+            desigInput.value = name;
+            closingElements()
+
+        }
         function deleteRow(e){
             desigArray.forEach((elem, index)=>{
                 if(elem.code===code){
-                    console.log(desigArray);
                     desigArray.splice(index, 1);
-                    console.log(desigArray);
                     writeDesig(desigArray);
                     desigDropDiv.remove()
                     return;
@@ -237,14 +247,23 @@ export const rowFact = ()=>{
 
         //desig
         desigNum.addEventListener("input", e=>{
+            desigInput.value="";
             onlyNumbers(desigNum, e);
             if(desigNum.value.length>1){
                 const arr = desigNum.value.split("")
                 desigNum.value = arr[0];
             }
             if(desigNum.value.length>0){
+                if(desigArray.length>0){
+                    desigArray.forEach(elem=>{
+                        if(Number(elem.code)===Number(desigNum.value)){
+                            desigInput.value = elem.desigName;
+                            return;
+                        }
+                    })
+                }
                 desigInput.focus();
-                desigInput.select();
+  
             }
         })
         desigInput.addEventListener("input",(e)=>{
@@ -309,6 +328,19 @@ export const rowFact = ()=>{
     return Object.assign({}, {row});
     
 }
+
+function checkIfOtherAreOpen(){
+    const allDrops = document.querySelectorAll(".desig-drop-clicked");
+    const allArrows = document.querySelectorAll(".desig-drop-arrow-on");
+    const allMenus = document.querySelectorAll(".desig-drop-menu-on");
+    if(allDrops){
+        allDrops.forEach((drop, index)=>{
+            drop.classList.remove("desig-drop-clicked");
+            allArrows[index].classList.remove("desig-drop-arrow-on");
+            allMenus[index].classList.remove("desig-drop-menu-on");
+        })
+    }
+}
 function deleteRow(row){
     const inputs = row.querySelectorAll("input");
 
@@ -356,18 +388,6 @@ function arrowTraverse(row){
         })
     })
 
-
-
-    //const [mm,dd,yy, desig, cred, deb, sal] = row.querySelectorAll("input")
-
-
-    // const row = e.target.parentElement;
-    // if((e.key==="Enter" || e.key==="ArrowRight")){
-    //     e.target.nextSibling.focus();
-    // }
-    // if(e.key==="ArrowLeft"){
-    //     e.target.previousSibling.focus();
-    // }
 }
 
 

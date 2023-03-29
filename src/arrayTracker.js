@@ -10,7 +10,6 @@ export let mainSnapshotArr = [];
 export let desigArray = [];
 export function updateDesig(arr){
     desigArray = arr;
-    console.log(desigArray);
 }
 
 
