@@ -398,18 +398,18 @@
 #add-movimento-btn{
     cursor: pointer;
     width:  clamp(10%, 8%, 12%);
-    color: rgba(183, 179, 179, 0.418);
+    color: rgba(255, 255, 255, 0.998);
     height: 35px;
     font-family: cinzel;
     border-radius: 100px;
     outline: none;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.401);
     background: none;
     font-size: 2.9rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(2, 11, 15, 0.289);
+    background-color: rgba(1, 36, 52, 0.289);
     box-shadow: 0px 1px 14px rgba(255, 255, 255, 0.097);
     user-select: none;
 

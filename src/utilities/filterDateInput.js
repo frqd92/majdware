@@ -49,7 +49,7 @@ function checkForZero(){
     const miniInput = document.querySelectorAll(".mini-input");
     miniInput.forEach((elem, i)=>{
         elem.addEventListener("keydown", (e)=>{
-            if(e.key==="ArrowRight" || e.key==="ArrowLeft" || e.key==="Enter"){
+            if(e.key==="ArrowRight" || e.key==="ArrowLeft" || e.key==="Tab" || e.key==="Enter"){
                 if(i===0 || i=== 1 || i===3 || i===4){
                     if(elem.value.length===1){
                         elem.value = "0" +elem.value;

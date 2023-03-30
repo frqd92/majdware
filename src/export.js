@@ -226,7 +226,7 @@ function visibleRows(){
     let arr = [];
     const rows = document.querySelectorAll(".table-row");
         rows.forEach((elem, index)=>{
-            if(!elem.classList.contains("hidden-row")){
+            if(!elem.classList.contains("hidden-row") && !elem.classList.contains("hidden-row-desig") ){
                 arr.push(snapshotArr[index]);
             }
         })
@@ -236,7 +236,7 @@ function visibleElements(){
     let arr = [];
     const rows = document.querySelectorAll(".table-row");
         rows.forEach((elem, index)=>{
-            if(!elem.classList.contains("hidden-row")){
+            if(!elem.classList.contains("hidden-row") && !elem.classList.contains("hidden-row-desig")){
                 arr.push(elem);
             }
         })

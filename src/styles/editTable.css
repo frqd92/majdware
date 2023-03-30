@@ -1,17 +1,20 @@
 
+.table-td:has(.edit-input-div){
+    background-color: rgba(79, 187, 196, 0.456);
+}
+
 .edit-input-div{
     width: 100%;
 }
 .edit-input{
-
-    padding:5px 0px;
     text-align: center;
     font-size: 1.2rem;
     border: none;
     outline: none;
-    background: rgba(243, 242, 242, 0.558);
+    background: none;
     border-radius: 8px;
     width: 100%;
+
 }
 
 .edit-date-input{

@@ -93,7 +93,9 @@ function desigDropFunc(div){
         function cancelNewDesig(e){
             if(e.key==="Escape"){
                 window.removeEventListener("keydown", cancelNewDesig);
-                div.querySelector(".add-new-desig").remove();
+                if(div.querySelector(".add-new-desig")!==null){
+                    div.querySelector(".add-new-desig").remove();
+                }
             }
         }
 
@@ -122,7 +124,7 @@ function desigDropFunc(div){
                 writeDesig(desigArray);
                 window.removeEventListener("keydown", cancelNewDesig);
                 div.querySelector(".add-new-desig").remove();
-                e.stopPropagation()
+                e.stopPropagation();
             }
         }
 
@@ -150,6 +152,7 @@ function desigDropFunc(div){
             const desigInput = div.querySelector(".adder-desig-input");
             numInput.value = code;
             desigInput.value = name;
+            desigInput.focus();
             closingElements()
 
         }
@@ -176,7 +179,9 @@ function desigDropFunc(div){
         menu.classList.remove("desig-drop-menu-on");
         arrow.classList.remove("desig-drop-arrow-on");
         arrowDiv.classList.remove("desig-drop-clicked");
-        window.removeEventListener("click", closeDropClick)
+        window.removeEventListener("click", closeDropClick);
+        if(div.querySelector(".add-new-desig")!==null)div.querySelector(".add-new-desig").remove();
+
     }
 
 

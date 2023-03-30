@@ -28,12 +28,113 @@
     border-left: 1px solid rgba(240, 240, 240, 0.1);
 }
 
-.table-td{
-text-align: center;
-padding: 5px 0px;
-border: 1px solid black;
+
+/* desig stuff*/
+.th-desig{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  position: relative;
 
 }
+.clear-filter-text{
+  position: absolute;
+  font-size: 0.5rem;
+  font-family: cairo;
+  top: 32%;
+  right: 0;
+  display: none;
+}
+.clear-filter-text-show{
+  display: block;
+}
+.th-desig:hover{
+  background-color: rgba(0, 0, 0, 0.076);
+}
+
+.th-desig span{
+  color: rgba(0, 0, 0, 0.111);
+  transition: transform 0.1s linear;
+  display: flex;
+}
+.td-arrow-on{
+  color: rgba(0, 0, 0, 0.511);
+  transform: rotate(-90deg);
+}
+/* menu for filtering desig */
+.table-desig-menu{
+  position: absolute;
+  width: 70%;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 3px;
+  top: 33px;
+  left: 58%;
+  display: flex;
+  flex-direction: column;
+}
+
+.td-desig-row{
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  justify-items: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.267);
+}
+.td-desig-row:last-child{
+  border: none;
+}
+.td-desig-row:hover{
+  background-color: rgba(91, 91, 91, 0.101);
+
+}
+.td-desig-row-selected{
+  background-color: rgba(0, 0, 0, 0.101);
+
+}
+.td-desig-text{
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-self: start;
+  padding: 8px 0px;
+  padding-left: 10px;
+  white-space: nowrap;
+  font-size: calc(0.5rem + 0.5vw);
+}
+
+
+
+.td-desig-check{
+  font-size: calc(0.4rem + 0.4vw);
+  transition: all 0.1s linear !important;
+  opacity: 0.5;
+
+}
+.td-check-show{
+  font-size: calc(0.8rem + 0.6vw);
+  filter: contrast(2) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.588));
+  opacity: 1;
+
+}
+
+
+
+
+
+
+
+
+.table-td{
+  text-align: center;
+  padding: 5px 0px;
+  border: 1px solid black;
+
+}
+
+
+
 
 .table-row{
     font-family: Arial, Helvetica, sans-serif;
@@ -49,6 +150,10 @@ border: 1px solid black;
 }
 .hidden-row{
     display: none;
+}
+.hidden-row-desig{
+  display: none;
+
 }
 .table-th:first-child{
     border-radius: 15px 0px 0px 0px;
